@@ -1,7 +1,9 @@
 // const CLIENT_ID = process.env.CLIENT_ID
-const CLIENT_ID = "498842285889-f2vvt30uncpdetbv1b647o61je3vu69s.apps.googleusercontent.com"
+const CLIENT_ID = process.env.REACT_APP_CLIENT_ID
+
 const SignIn = () => {
 
+    console.log(process.env.REACT_APP_CLIENT_ID)
     return (<>
         <div id="g_id_onload"
             data-client_id={CLIENT_ID}
