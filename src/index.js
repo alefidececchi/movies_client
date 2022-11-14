@@ -1,22 +1,29 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
+import { Provider } from 'react-redux'
 import reportWebVitals from './reportWebVitals';
 import './index.css';
 import App from './App';
 import ErrorPage from './components/ErrorPage/ErrorPage';
+import store from './redux/store/store.js'
+import axios from 'axios';
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 const router = createBrowserRouter([{
   element: <><App /></>,
   errorElement: <ErrorPage />,
-  path: '/',
+  path: '*',
 }])
+
+axios.defaults.baseURL = process.env.REACT_APP_BACKEND_URL
 
 root.render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <Provider store={store}>
+      <RouterProvider router={router} />
+    </Provider>
   </React.StrictMode>
 );
 
