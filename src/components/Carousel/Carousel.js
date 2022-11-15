@@ -7,13 +7,16 @@ const Carousel = ({ type }) => {
 
     const dispatch = useDispatch()
     const carousel = useSelector(state => state.carousel.data)
+    const status = useSelector(state => state.carousel.status)
 
     useEffect(() => {
-        dispatch(fetchCarousel(type))
+        if (status !== 'loading') {
+            console.log(status)
+            dispatch(fetchCarousel(type))
+        }
     }, [dispatch, type])
 
     return (<div>
-        {console.log(carousel)}
         {
             carousel.length && carousel.map(c => (
                 <div key={c._id}>

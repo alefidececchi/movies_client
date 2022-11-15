@@ -11,7 +11,7 @@ const ContainerMovies = () => {
 
 
     useEffect(() => {
-        console.log(status)
+        // console.log(status)
         if(status === 'idle') {
             dispatch(fetchContainerMovies())
         }

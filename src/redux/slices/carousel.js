@@ -22,7 +22,7 @@ const carouselSlice = createSlice({
             .addCase(fetchCarousel.fulfilled, (state, action) => {
                 state.status = 'succeeded'
                 // Add any fetched posts to the array
-                console.log(action.payload)
+                // console.log(action.payload)
                 state.data = action.payload.carousel
             })
             .addCase(fetchCarousel.rejected, (state, action) => {

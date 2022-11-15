@@ -10,7 +10,7 @@ const ContainerMovies = () => {
     const status = useSelector(state => state.containerSeries.status)
 
     useEffect(() => {
-        console.log(status)
+        // console.log(status)
         if (status === 'idle') {
             dispatch(fetchContainerSeries())
         }

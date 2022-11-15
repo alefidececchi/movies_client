@@ -10,7 +10,7 @@ const Series = () => {
     const dispatch = useDispatch()
 
     const handleClick = (input) => {
-        console.log('desde el componente movies imprimimos el valor local de searchbar', input)
+        // console.log('desde el componente movies imprimimos el valor local de searchbar', input)
         //hacer fetch con las querys
         dispatch(fetchContainerSeries(input))
     }
