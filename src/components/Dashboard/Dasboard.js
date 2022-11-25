@@ -7,14 +7,11 @@ import DashboardContainer from '../DashboardContainer/DashboardContainer.js'
 const Dashboard = () => {
 
     const { selected } = useParams()
-
-    console.log(selected)
-
-
+    
     return (
         <div>
             <DashboardMenu />
-            <DashboardContainer />
+            <DashboardContainer selected={selected} />
         </div>
     )
 

@@ -11,9 +11,6 @@ const DashboardMenu = () => {
                 <li><NavLink to="/dashboard/carousel">Carousel</NavLink></li>
                 <li><NavLink>Perfil</NavLink></li>
             </ul>
-
-
-
         </div>
     )
 
