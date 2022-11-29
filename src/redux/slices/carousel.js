@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { deleteCarousel, fetchAllCarousel, fetchCarousel } from '../thunks/carousel.js'
+import { fetchAllCarousel, fetchCarousel } from '../thunks/carousel.js'
 
 
 const carouselSlice = createSlice({
@@ -44,18 +44,18 @@ const carouselSlice = createSlice({
                 state.error = action.error.message
             })
 
-            //DELETE CAROUSEL
-            .addCase(deleteCarousel.pending, (state, action) => {
-                state.status = 'loading'
-            })
-            .addCase(deleteCarousel.fulfilled, (state, action) => {
-                state.status = 'succeeded'
-                state.message = action.payload.message
-            })
-            .addCase(deleteCarousel.rejected, (state, action) => {
-                state.status = 'failed'
-                state.error = action.payload.error
-            })
+            // //DELETE CAROUSEL
+            // .addCase(deleteCarousel.pending, (state, action) => {
+            //     state.status = 'loading'
+            // })
+            // .addCase(deleteCarousel.fulfilled, (state, action) => {
+            //     state.status = 'succeeded'
+            //     state.message = action.payload.message
+            // })
+            // .addCase(deleteCarousel.rejected, (state, action) => {
+            //     state.status = 'failed'
+            //     state.error = action.payload.error
+            // })
     }
 })
 

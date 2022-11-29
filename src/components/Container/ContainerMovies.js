@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchContainerMovies } from '../../redux/thunks/container.js'
+import { fetchContainerMovies } from '../../redux/thunks/movies.js'
 import ItemCard from '../ItemCard/ItemCard.js';
 
 const ContainerMovies = () => {
@@ -11,12 +11,8 @@ const ContainerMovies = () => {
 
 
     useEffect(() => {
-        // console.log(status)
-        if(status === 'idle') {
-            dispatch(fetchContainerMovies())
-        }
-    }, [dispatch, status])
-
+        dispatch(fetchContainerMovies())
+    }, [dispatch])
 
     return (
         <div>
@@ -27,7 +23,7 @@ const ContainerMovies = () => {
                     description={i.description}
                     director={i.director}
                     category={i.category}
-                    key={i.title}
+                    key={i._id}
                     link_img={i.link_img}
                     title={i.title}
                 ></ItemCard>)

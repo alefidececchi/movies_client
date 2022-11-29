@@ -11,15 +11,25 @@ const DivForm = (props) => {
     const handleChange = (e) => {
         setInput(e.target.value);
         validate(e.target.value)
+
+        //PARA QUE EL PADRE RECIBA LOS CAMBIOS
         if (props.receiveState) props.receiveState(e)
-        if (props.compare) props.compare(e, error)
+        // if (props.compare) props.compare(e, error)
     }
 
     return (
         <div>
-            <label htmlFor={props.htmlFor}>{props.label}</label>
-            <input name={props.name} onChange={handleChange} type={props.type} value={input} />
-            {!!error.length && (<p style={{ "backgroundColor": "red" }}>{props.errorMessage}</p>)}
+            <div>
+                <label htmlFor={props.name}>{props.label}</label>
+                <input
+                    name={props.name}
+                    onChange={handleChange}
+                    placeholder={props.placeholder}
+                    type={props.type}
+                    value={input} />
+            </div>
+            {error === "" ? undefined : (<p style={{ "backgroundColor": "red" }}>{error}</p>)}
+            {props.img ? (<div><img style={{ height: "120px", width: "auto" }} alt={props.title} src={props.img} /></div>) : undefined}
         </div>
     )
 }

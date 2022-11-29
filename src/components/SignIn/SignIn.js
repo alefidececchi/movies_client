@@ -46,11 +46,11 @@ const SignIn = () => {
 
     return (<div>
         <form onSubmit={handleSubmit}>
-            <DivForm receiveState={handleChange} errorMessage="Escribe un nombre" htmlFor="name" initialValue="" label="Nombre: " name="name" type="text"></DivForm>
-            <DivForm receiveState={handleChange} errorMessage="Escribe tu apellido" htmlFor="lastName" initialValue="" label="Apellido: " name="lastName" type="text"></DivForm>
-            <DivForm receiveState={handleChange} errorMessage="Escribe un mail válido" htmlFor="email" initialValue="" label="E-mail: " name="email" type="email"></DivForm>
-            <DivForm compare={comparePasswords} receiveState={handleChange} errorMessage="Este campo no puede estar vacío" htmlFor="password" initialValue="" label="Contraseña: " name="password" type="password"></DivForm>
-            <DivForm compare={comparePasswords} receiveState={handleChange} errorMessage="Este campo no puede estar vacío" htmlFor="password2" initialValue="" label="Una vez mas: " name="password2" type="password"></DivForm>
+            <DivForm receiveState={handleChange} errorMessage="Escribe un nombre" initialValue="" label="Nombre: " name="name" type="text"></DivForm>
+            <DivForm receiveState={handleChange} errorMessage="Escribe tu apellido" initialValue="" label="Apellido: " name="lastName" type="text"></DivForm>
+            <DivForm receiveState={handleChange} errorMessage="Escribe un mail válido" initialValue="" label="E-mail: " name="email" type="email"></DivForm>
+            <DivForm compare={comparePasswords} receiveState={handleChange} errorMessage="Este campo no puede estar vacío" initialValue="" label="Contraseña: " name="password" type="password"></DivForm>
+            <DivForm compare={comparePasswords} receiveState={handleChange} errorMessage="Este campo no puede estar vacío" initialValue="" label="Una vez mas: " name="password2" type="password"></DivForm>
             {error}
             <div>
                 <input type="submit" value="hecho" />

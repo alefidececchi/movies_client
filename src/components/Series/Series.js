@@ -2,7 +2,7 @@ import { useDispatch } from 'react-redux'
 
 import Carousel from '../Carousel/Carousel.js'
 import ContainerSeries from '../Container/ContainerSeries.js'
-import { fetchContainerSeries } from '../../redux/thunks/container.js'
+import { fetchContainerSeries } from '../../redux/thunks/series.js'
 import SearchBar from '../SearchBar/SearchBar.js'
 
 const Series = () => {

@@ -1,21 +1,17 @@
 import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchContainerSeries } from '../../redux/thunks/container.js'
+import { fetchContainerSeries } from '../../redux/thunks/series.js'
 import ItemCard from '../ItemCard/ItemCard.js';
 
 const ContainerMovies = () => {
 
     const dispatch = useDispatch()
     const container = useSelector(state => state.containerSeries.data)
-    const status = useSelector(state => state.containerSeries.status)
+    // const status = useSelector(state => state.containerSeries.status)
 
     useEffect(() => {
-        // console.log(status)
-        if (status === 'idle') {
-            dispatch(fetchContainerSeries())
-        }
-    }, [dispatch, status])
-
+        dispatch(fetchContainerSeries())
+    }, [dispatch])
 
     return (
         <div>
@@ -26,7 +22,7 @@ const ContainerMovies = () => {
                     description={i.description}
                     director={i.director}
                     category={i.category}
-                    key={i.title + i.season}
+                    key={i._id}
                     link_img={i.link_img}
                     title={i.title}
                 ></ItemCard>)

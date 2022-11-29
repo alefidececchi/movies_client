@@ -14,8 +14,6 @@ const Dashboard = () => {
             <DashboardContainer selected={selected} />
         </div>
     )
-
-
 }
 
 export default Dashboard;

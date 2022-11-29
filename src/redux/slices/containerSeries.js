@@ -1,13 +1,14 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { fetchContainerSeries } from '../thunks/container.js';
+import { fetchContainerSeries } from '../thunks/series.js';
 
 
 export const containerSeriesSlice = createSlice({
     name: 'containerSeries',
     initialState: {
-        status: 'idle',
         data: [],
         error: null,
+        // singleDetail: null,
+        status: 'idle',
     },
     reducers: {
         getSeries: (state, action) => {

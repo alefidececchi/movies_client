@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux'
 import Carousel from '../Carousel/Carousel.js'
 import ContainerMovies from '../Container/ContainerMovies.js'
 import SearchBar from '../SearchBar/SearchBar.js'
-import { fetchContainerMovies } from '../../redux/thunks/container.js'
+import { fetchContainerMovies } from '../../redux/thunks/movies.js'
 
 const Movies = () => {
 

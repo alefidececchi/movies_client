@@ -1,18 +1,19 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { fetchContainerMovies } from '../thunks/container.js';
+import { fetchContainerMovies } from '../thunks/movies.js';
 
 
 export const containerMoviesSlice = createSlice({
     name: 'containerMovies',
     initialState: {
-        status: 'idle',
         data: [],
         error: null,
+        // singleDetail: null,
+        status: 'idle',
     },
     reducers: {
         getMovies: (state, action) => {
             state.data = action.payload.movies
-        }
+        },
     },
     extraReducers(builder) {
         builder
@@ -31,6 +32,8 @@ export const containerMoviesSlice = createSlice({
     }
 })
 
-export const { getMovies } = containerMoviesSlice.actions
+export const {
+    //  getMovieId,
+     getMovies } = containerMoviesSlice.actions
 
 export default containerMoviesSlice.reducer
