@@ -10,18 +10,18 @@ const Carousel = ({ type }) => {
     const status = useSelector(state => state.carousel.status)
 
     useEffect(() => {
-        if (status !== 'loading') {
-            console.log(status)
-            dispatch(fetchCarousel(type))
-        }
-    }, [dispatch, type])
+        // if (status !== 'loading') {
+        console.log(status)
+        dispatch(fetchCarousel(type))
+        // }
+    }, [dispatch])
 
     return (<div>
         {
-            carousel.length && carousel.map(c => (
+            !!carousel.length && carousel.map(c => (
                 <div key={c._id}>
                     <p>{c.title}</p>
-                    <img src={c.desktop_img} />
+                    <img alt={c.title} src={c.desktop_img} />
                 </div>
             ))
         }

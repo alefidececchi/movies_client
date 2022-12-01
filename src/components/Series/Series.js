@@ -19,7 +19,7 @@ const Series = () => {
 
     return (<div>
         <Carousel type="series" />
-        <SearchBar onClick={handleClick} />
+        <SearchBar onClick={handleClick} placeholder="Escribe el nombre de una serie" />
         <ContainerSeries />
     </div>)
 }

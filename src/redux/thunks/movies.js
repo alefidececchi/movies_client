@@ -1,6 +1,14 @@
 import axios from 'axios'
 import { createAsyncThunk } from '@reduxjs/toolkit'
 
+export const createMovie = createAsyncThunk('form/createMovie', async (data) => {
+    try {
+        const response = await axios.post(`/movies/create`, data)
+        return response.data
+    } catch (error) {
+        console.log(error)
+    }
+})
 
 export const fetchContainerMovies = createAsyncThunk('containerMovies/fetchContainerMovies', async (input) => {
     //FETCH DATA

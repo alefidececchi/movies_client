@@ -1,6 +1,14 @@
 import axios from 'axios'
 import { createAsyncThunk } from '@reduxjs/toolkit'
 
+export const createSerie = createAsyncThunk('form/createSerie', async (data) => {
+    try {
+        const response = await axios.post(`/series/create`, data)
+        return response.data
+    } catch (error) {
+        console.log(error)
+    }
+})
 
 export const fetchContainerSeries = createAsyncThunk('containerSeries/fetchContainerSeries', async (input) => {
     try {

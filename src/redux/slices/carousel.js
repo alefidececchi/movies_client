@@ -43,19 +43,6 @@ const carouselSlice = createSlice({
                 state.status = 'failed'
                 state.error = action.error.message
             })
-
-            // //DELETE CAROUSEL
-            // .addCase(deleteCarousel.pending, (state, action) => {
-            //     state.status = 'loading'
-            // })
-            // .addCase(deleteCarousel.fulfilled, (state, action) => {
-            //     state.status = 'succeeded'
-            //     state.message = action.payload.message
-            // })
-            // .addCase(deleteCarousel.rejected, (state, action) => {
-            //     state.status = 'failed'
-            //     state.error = action.payload.error
-            // })
     }
 })
 

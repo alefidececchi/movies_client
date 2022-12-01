@@ -16,7 +16,7 @@ const SearchBar = (props) => {
 
     return (
         <div>
-            <input placeholder='pelicula o serie' onChange={handleChange} type="text" value={input} />
+            <input placeholder={props.placeholder} onChange={handleChange} type="text" value={input} />
             <button onClick={handleClick}>Buscar</button>
         </div>
     )

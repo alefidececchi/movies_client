@@ -1,7 +1,14 @@
 import axios from 'axios'
 import { createAsyncThunk } from '@reduxjs/toolkit'
 
-
+export const createCarousel = createAsyncThunk('form/createCarousel', async (data) => {
+    try {
+        const response = await axios.post(`/carousel/create`, data)
+        return response.data
+    } catch (error) {
+        console.log(error)
+    }
+})
 
 export const fetchAllCarousel = createAsyncThunk('carousel/fetchAllCarousel', async () => {
     try {

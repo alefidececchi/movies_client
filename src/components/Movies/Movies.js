@@ -19,7 +19,7 @@ const Movies = () => {
 
     return (<div>
         <Carousel type="movies" />
-        <SearchBar onClick={handleClick} />
+        <SearchBar onClick={handleClick} placeholder="Escribe el nombre de una pelicula" />
         <ContainerMovies />
     </div>)
 }
