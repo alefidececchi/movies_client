@@ -32,8 +32,5 @@ export const containerMoviesSlice = createSlice({
     }
 })
 
-export const {
-    //  getMovieId,
-     getMovies } = containerMoviesSlice.actions
-
+export const { getMovies } = containerMoviesSlice.actions
 export default containerMoviesSlice.reducer

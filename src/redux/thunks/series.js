@@ -3,7 +3,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit'
 
 export const createSerie = createAsyncThunk('form/createSerie', async (data) => {
     try {
-        const response = await axios.post(`/series/create`, data)
+        const response = await axios.post(`/series`, data)
         return response.data
     } catch (error) {
         console.log(error)
@@ -32,7 +32,7 @@ export const fetchSerieId = createAsyncThunk('form/fetchSerieId', async (id) => 
 export const updateSerieId = createAsyncThunk('form/updateSerieId', async ({id, payload}) => {
 
     try {
-        const response = await axios.put(`/series/update/${id}`, payload)
+        const response = await axios.put(`/series/${id}`, payload)
         return response.data
     } catch (error) {
         console.log(error)
@@ -41,7 +41,7 @@ export const updateSerieId = createAsyncThunk('form/updateSerieId', async ({id, 
 
 export const deleteSerieId = createAsyncThunk('form/deleteSerieId', async (id) => {
     try {
-        const response = await axios.delete(`/series/delete/${id}`)
+        const response = await axios.delete(`/series/${id}`)
         return response.data
     } catch (error) {
         console.log(error)

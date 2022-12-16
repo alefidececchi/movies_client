@@ -16,7 +16,7 @@ const DashboardContainer = (props) => {
         <div>
             {
                 selected === undefined ?
-                    (<h1>selected es {selected}</h1>) :
+                    (<h1>Hello Motherfucker</h1>) :
                     (
                         <div>
                             <h2>{selected}</h2>

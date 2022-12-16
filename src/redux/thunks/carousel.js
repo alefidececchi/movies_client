@@ -3,7 +3,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit'
 
 export const createCarousel = createAsyncThunk('form/createCarousel', async (data) => {
     try {
-        const response = await axios.post(`/carousel/create`, data)
+        const response = await axios.post(`/carousel`, data)
         return response.data
     } catch (error) {
         console.log(error)
@@ -32,7 +32,7 @@ export const fetchCarousel = createAsyncThunk('carousel/fetchCarousel', async (t
 export const updateCarouselId = createAsyncThunk('form/updateCarouselId', async ({id, payload}) => {
     
     try {
-        const response = await axios.put(`/carousel/update/${id}`, payload)
+        const response = await axios.put(`/carousel/${id}`, payload)
         return response.data
     } catch (error) {
         console.log(error)
@@ -42,7 +42,7 @@ export const updateCarouselId = createAsyncThunk('form/updateCarouselId', async 
 export const deleteCarouselId = createAsyncThunk('form/deleteCarouselId', async (id) => {
 
     try {
-        const response = await axios.delete(`/carousel/delete/${id}`)
+        const response = await axios.delete(`/carousel/${id}`)
         return response.data
     } catch (error) {
         console.log(error)

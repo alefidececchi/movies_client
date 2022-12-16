@@ -4,6 +4,7 @@ import { Route, Routes } from 'react-router-dom'
 
 import Dashboard from './components/Dashboard/Dasboard.js'
 import Form from './components/Form/Form';
+import Login from './components/Login/Login.js'
 import Movies from './components/Movies/Movies.js'
 import Navbar from './components/Navbar/Navbar';
 import Series from './components/Series/Series.js'
@@ -22,6 +23,7 @@ function App() {
         <Route path='/dashboard' element={<Dashboard />}></Route>
         <Route path='/form/:id' element={<Form />}></Route>
         <Route path='/form' element={<Form />}></Route>
+        <Route path='/login' element={<Login />}></Route>
         <Route path='/' element={<><h1>Hello world</h1><Movies /></>}></Route>
       </Routes>
     </div>

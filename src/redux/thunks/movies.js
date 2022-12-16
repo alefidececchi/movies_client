@@ -3,7 +3,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit'
 
 export const createMovie = createAsyncThunk('form/createMovie', async (data) => {
     try {
-        const response = await axios.post(`/movies/create`, data)
+        const response = await axios.post(`/movies`, data)
         return response.data
     } catch (error) {
         console.log(error)
@@ -34,7 +34,7 @@ export const updateMovieId = createAsyncThunk('form/updateMovieId', async ({id,p
     try {
         console.log('ID: ', id)
         console.log('payload: ',payload)
-        const response = await axios.put(`/movies/update/${id}`, payload)
+        const response = await axios.put(`/movies/${id}`, payload)
         return response.data
     } catch (error) {
         console.log(error)
@@ -43,7 +43,7 @@ export const updateMovieId = createAsyncThunk('form/updateMovieId', async ({id,p
 
 export const deleteMovieId = createAsyncThunk('form/deleteMovieId', async (id) => {
     try {
-        const response = await axios.delete(`/movies/delete/${id}`)
+        const response = await axios.delete(`/movies/${id}`)
         return response.data
     } catch (error) {
         console.log(error)

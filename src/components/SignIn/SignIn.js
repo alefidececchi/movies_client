@@ -23,13 +23,16 @@ const SignIn = () => {
     }
 
     const comparePasswords = (event, err) => {
-        // if (!!err.length) {
-        //     setError("")
-        // } else 
-        // event.target.name !== "password2"
-        //     ? undefined
-        //     : input.password !== event.target.value ? setError("Las contraseñas deben ser iguales")
-        //         : setError("")
+        if (!!err.length) {
+            setError("")
+        } 
+        // else {
+        //     event.target.name !== "password2"
+        //         ? undefined
+        //         : input.password !== event.target.value ? setError("Las contraseñas deben ser iguales")
+        //             : setError("")
+
+        // }
 
         // if (event.target.name === "password2") {
         //     if (input.password !== event.target.value) {
@@ -59,7 +62,7 @@ const SignIn = () => {
         <div>
             <div id="g_id_onload"
                 data-client_id={CLIENT_ID}
-                data-login_uri="http://localhost:3001/signin"
+                data-login_uri="http://localhost:3000"
             // data-auto_prompt="false"
             >
             </div>
