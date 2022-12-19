@@ -3,7 +3,7 @@ import containerMoviesSlice from '../slices/containerMovies.js'
 import containerSeriesSlice from '../slices/containerSeries.js'
 import carouselSlice from '../slices/carousel.js'
 import formSlice from '../slices/form.js'
-import tokenSlice from '../slices/token.js'
+import userSlice from '../slices/user.js'
 
 
 export default configureStore({
@@ -12,6 +12,6 @@ export default configureStore({
         containerSeries: containerSeriesSlice,
         carousel: carouselSlice,
         form: formSlice,
-        token: tokenSlice
+        user: userSlice
     }
 })

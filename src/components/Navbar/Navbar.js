@@ -1,15 +1,29 @@
-import { NavLink } from "react-router-dom"
-import { useSelector } from "react-redux"
+import { useEffect } from "react"
+import { NavLink, useNavigate } from "react-router-dom"
+import { useDispatch, useSelector } from "react-redux"
+
+import { logoutSession } from "../../redux/thunks/user"
 
 
 const Navbar = () => {
 
-    const stateLogin = useSelector(state => state.token.stateLogin)
+    const dispatch = useDispatch();
+    const stateLogin = useSelector(state => state.user.stateLogin)
+    const navigate = useNavigate()
 
     const handleLogoutSession = () => {
         //dispatchar accion que cierra sesion
-        
+        const user = window.localStorage.getItem('user')
+        if (user) {
+            const { id, token } = JSON.parse(user)
+            dispatch(logoutSession({id, token}))
+            navigate('/')
+        }
     }
+
+    useEffect(() => {
+        if(window.localStorage.getItem('user') && !stateLogin) window.localStorage.removeItem('user')
+    },[stateLogin])
 
     return (
         <div>

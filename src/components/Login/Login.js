@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 
-import { getToken } from '../../redux/thunks/token.js'
+import { getToken } from '../../redux/thunks/user.js'
 import DivForm from '../DivForm/DivForm.js'
 
 
@@ -13,30 +13,30 @@ const Login = () => {
     const [login, setLogin] = useState({ email: '', password: '' })
     const dispatch = useDispatch()
     const navigate = useNavigate()
-    const stateLogin = useSelector(state => state.token.stateLogin)
-    const token = useSelector(state => state.token.data)
-    const id = useSelector(state => state.token.user)
+    const stateLogin = useSelector(state => state.user.stateLogin)
+    const token = useSelector(state => state.user.token)
+    const id = useSelector(state => state.user.user)
 
-    useEffect(() => {
-        console.log(login)
-    }, [login])
+    // useEffect(() => {
+    //     console.log(login)
+    // }, [login])
 
     useEffect(() => {
         if (stateLogin) {
-            navigate('/')
-            window.sessionStorage.setItem('user', JSON.stringify({
+            window.localStorage.setItem('user', JSON.stringify({
                 token: token,
                 stateLogin: stateLogin,
                 id: id
             }))
+            setLogin({ email: '', password: '' })
+            navigate('/')
         }
-    }, [stateLogin])
+    }, [id, navigate, stateLogin, token])
 
     const handleSubmit = (e) => {
         e.preventDefault()
         //dispatchar accion que envie login al backend
         dispatch(getToken(login))
-        setLogin({ email: '', password: '' })
     }
 
     const handleChange = (e) => {
