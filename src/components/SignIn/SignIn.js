@@ -1,46 +1,40 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 
+import { signin } from '../../redux/thunks/user.js'
+import { resetMessageSignin } from '../../redux/slices/user.js'
+import Dialog from '../Dialog/Dialog.js'
 import DivForm from '../DivForm/DivForm.js'
+
 
 const CLIENT_ID = process.env.REACT_APP_CLIENT_ID
 
-
 const SignIn = () => {
 
+    const dispatch = useDispatch()
     const [input, setInput] = useState({
         name: '',
         lastName: '',
         email: '',
         password: '',
-        password2: ''
     })
+    const message = useSelector(state => state.user.message)
+    const stateSignin = useSelector(state => state.user.stateSignin)
 
-    const [error, setError] = useState("")
+    useEffect(() => {
+        return setInput({
+            name: '',
+            lastName: '',
+            email: '',
+            password: '',
+        })
+    },[setInput])
 
     const handleSubmit = (e) => {
         console.log(input)
         e.preventDefault()
-    }
-
-    const comparePasswords = (event, err) => {
-        if (!!err.length) {
-            setError("")
-        } 
-        // else {
-        //     event.target.name !== "password2"
-        //         ? undefined
-        //         : input.password !== event.target.value ? setError("Las contraseñas deben ser iguales")
-        //             : setError("")
-
-        // }
-
-        // if (event.target.name === "password2") {
-        //     if (input.password !== event.target.value) {
-        //         setError("Las contraseñas deben ser iguales")
-        //     } else {
-        //         setError("")
-        //     }
-        // }
+        //DISPATCHAR ACCION QUE ENVIE FORMULARIO A /SIGNIN POST
+        dispatch(signin(input))
     }
 
     const handleChange = (e) => {
@@ -49,16 +43,23 @@ const SignIn = () => {
 
     return (<div>
         <form onSubmit={handleSubmit}>
-            <DivForm receiveState={handleChange} errorMessage="Escribe un nombre" initialValue="" label="Nombre: " name="name" type="text"></DivForm>
+            <DivForm receiveState={handleChange} errorMessage="Escribe tu nombre" initialValue="" label="Nombre: " name="name" type="text"></DivForm>
             <DivForm receiveState={handleChange} errorMessage="Escribe tu apellido" initialValue="" label="Apellido: " name="lastName" type="text"></DivForm>
             <DivForm receiveState={handleChange} errorMessage="Escribe un mail válido" initialValue="" label="E-mail: " name="email" type="email"></DivForm>
-            <DivForm compare={comparePasswords} receiveState={handleChange} errorMessage="Este campo no puede estar vacío" initialValue="" label="Contraseña: " name="password" type="password"></DivForm>
-            <DivForm compare={comparePasswords} receiveState={handleChange} errorMessage="Este campo no puede estar vacío" initialValue="" label="Una vez mas: " name="password2" type="password"></DivForm>
-            {error}
+            <DivForm receiveState={handleChange} errorMessage="La contraseña debe tener al menos 6 caracteres" initialValue="" label="Contraseña: " name="password" type="password"></DivForm>
             <div>
-                <input type="submit" value="hecho" />
+                {
+                    input.email.length && input.lastName.length && input.name.length && 6 <= input.password.length
+                        ? <button>Listo</button>
+                        : undefined
+                }
             </div>
         </form>
+        {
+            !stateSignin && !message
+                ? undefined
+                : <Dialog dispatcher={resetMessageSignin} id='signinMessage' message={message} navigate="/" />
+        }
         <div>
             <div id="g_id_onload"
                 data-client_id={CLIENT_ID}

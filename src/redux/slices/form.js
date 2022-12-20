@@ -10,7 +10,7 @@ export const formSlice = createSlice({
     initialState: {
         data: {},
         error: null,
-        message: '',
+        message: null,
         status: 'idle',
     },
     reducers: {
@@ -47,7 +47,7 @@ export const formSlice = createSlice({
             }
         },
         resetMessage: (state, action) => {
-            state.message = ''
+            state.message = null
         },
         createForm: (state, action) => {
             switch (action.payload) {

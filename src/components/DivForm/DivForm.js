@@ -17,7 +17,6 @@ const DivForm = (props) => {
         if (props.receiveState) {
             props.receiveState(e)
         }
-        // if (props.compare) props.compare(e, error)
     }
 
     const handleClick = (e) => {

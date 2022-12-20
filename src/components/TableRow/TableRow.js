@@ -4,11 +4,6 @@
 
 const TableRow = (props) => {
 
-    // const dispatch = useDispatch()
-    // const error = useSelector(state => state.carousel.error)
-    // const message = useSelector(state => state.carousel.message)
-    // const status = useSelector(state => state.carousel.status)
-
     const imgTD = {
         height: "80px",
         width: "auto",

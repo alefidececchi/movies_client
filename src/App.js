@@ -18,13 +18,13 @@ function App() {
       <Navbar></Navbar>
       <Routes >
         <Route path='/signin' element={<SignIn />}></Route>
-        <Route path='/series' element={<><h1>Hello world</h1><Series /></>}></Route>
+        <Route path='/series' element={<Series />}></Route>
         <Route path='/dashboard/:selected' element={<Dashboard />}></Route>
         <Route path='/dashboard' element={<Dashboard />}></Route>
         <Route path='/form/:id' element={<Form />}></Route>
         <Route path='/form' element={<Form />}></Route>
         <Route path='/login' element={<Login />}></Route>
-        <Route path='/' element={<><h1>Hello world</h1><Movies /></>}></Route>
+        <Route path='/' element={<Movies />}></Route>
       </Routes>
     </div>
   );

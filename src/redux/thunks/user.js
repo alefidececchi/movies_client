@@ -15,12 +15,23 @@ export const getToken = createAsyncThunk('user/getToken', async (data) => {
 export const logoutSession = createAsyncThunk('user/logoutSession', async ({ id, token }) => {
 
     const headers = {
-        "Authorization": `Bearer ${token}`
+        'Authorization': `Bearer ${token}`
     }
 
     try {
-        // console.log(id, token)
+        console.log('HEADERS', headers)
+        console.log('ID', id)
         const response = await axios.put(`/logout/${id}`, undefined, { headers })
+        return response.data
+    } catch (error) {
+        console.log(error)
+    }
+})
+
+export const signin = createAsyncThunk('user/signin', async (data) => {
+    try {
+        console.log(data)
+        const response = await axios.post(`/signin?clasic=true`, data)
         return response.data
     } catch (error) {
         console.log(error)

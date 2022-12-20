@@ -3,11 +3,11 @@ import { useDispatch, useSelector } from "react-redux"
 import { useSearchParams } from "react-router-dom"
 
 import { cleaningForm, createForm, modifyDeleteArr, modifyFilterArr, modifyPushArr, resetMessage, updateForm } from '../../redux/slices/form.js'
-import { createMovie, updateMovieId } from "../../redux/thunks/movies.js"
-import { createSerie, updateSerieId } from "../../redux/thunks/series.js"
-import { createCarousel, updateCarouselId } from "../../redux/thunks/carousel.js"
-import DivForm from "../DivForm/DivForm"
+import { createMovie, deleteMovieId,updateMovieId } from "../../redux/thunks/movies.js"
+import { createSerie, deleteSerieId,updateSerieId } from "../../redux/thunks/series.js"
+import { createCarousel, deleteCarouselId, updateCarouselId } from "../../redux/thunks/carousel.js"
 import Dialog from "../Dialog/Dialog.js"
+import DivForm from "../DivForm/DivForm"
 
 
 
@@ -17,18 +17,21 @@ const Form = () => {
     const form = useSelector(state => state.form.data)
     const [queryParams] = useSearchParams()
     const message = useSelector(state => state.form.message)
+    const selected = queryParams.get('selected')
+    const token = useSelector(state => state.user.token)
+
 
     console.log(form)
 
     useEffect(() => {
-        if (queryParams.get('selected')) {
+        if (selected) {
             //DISPATCHAR ACCIONES DEPENDIENDO DE SELECTED
-            dispatch(createForm(queryParams.get('selected')))
+            dispatch(createForm(selected))
         }
         return () => {
             dispatch(cleaningForm())
         }
-    }, [dispatch, queryParams])
+    }, [dispatch, selected, queryParams])
 
     const handleChange = (e) => {
         let target = e.target.name
@@ -62,43 +65,63 @@ const Form = () => {
         if (form.movieOrSerie === undefined) {
             !form.season ?
                 //movie
-                dispatch(updateMovieId({ id: form._id, payload })) :
+                dispatch(updateMovieId({ id: form._id, payload, token })) :
                 //serie
-                dispatch(updateSerieId({ id: form._id, payload }))
+                dispatch(updateSerieId({ id: form._id, payload, token }))
         } else {
             //carousel
-            dispatch(updateCarouselId({ id: form._id, payload }))
+            dispatch(updateCarouselId({ id: form._id, payload, token }))
         }
     }
+
+    const handleClickDelete = (e) => {
+        if (form.movieOrSerie === undefined) {
+            !form.season ?
+                //movie
+                dispatch(deleteMovieId({ id: form._id, token })) :
+                //serie
+                dispatch(deleteSerieId({ id: form._id, token }))
+        } else {
+            //carousel
+            dispatch(deleteCarouselId({ id: form._id, token }))
+        }
+    }
+
     const handleClickCreate = (e) => {
         const { _id, __v, ...payload } = form
         console.log(payload)
         if (form.movieOrSerie === undefined) {
             !form.season ?
                 //movie
-                dispatch(createMovie(payload)) :
+                dispatch(createMovie({ payload, token })) :
                 //serie
-                dispatch(createSerie(payload))
+                dispatch(createSerie({ payload, token }))
         } else {
             //carousel
-            dispatch(createCarousel(payload))
+            dispatch(createCarousel({ payload, token }))
         }
     }
 
     return (
         <div>
-            {message !== '' ?
-                <Dialog dispatcher={resetMessage} id={`dialog`} message={message} /> : undefined}
             {
-                form._id === undefined ?
-                    <button onClick={handleClickCreate}>Crear</button> :
-                    <button onClick={handleClickUpdate}>Actualizar</button>
+                message
+                    ? <Dialog dispatcher={resetMessage} id={`dialog`} message={message} navigate={`/dashboard`} />
+                    : undefined
             }
             {
-                !Object.keys(form).length ?
-                    undefined :
-                    form.movieOrSerie === undefined ?
-                        //PELICULA // SERIE
+                form._id === undefined
+                    ? <button onClick={handleClickCreate}>Crear</button>
+                    : <div>
+                        <button onClick={handleClickDelete}>Eliminar</button>
+                        <button onClick={handleClickUpdate}>Actualizar</button>
+                    </div>
+            }
+            {
+                !Object.keys(form).length
+                    ? undefined
+                    : form.movieOrSerie === undefined
+                        ? //PELICULA - SERIE
                         (<div>
                             <DivForm
                                 errorMessage="Debes agregar un titulo"
@@ -194,8 +217,7 @@ const Form = () => {
                                 options={["dvd", "pendrive"]}
                             />
                         </div>
-                        ) :
-                        //CAROUSEL
+                        ) : //CAROUSEL
                         (<div>
                             <DivForm
                                 errorMessage="Debes agregar un titulo"

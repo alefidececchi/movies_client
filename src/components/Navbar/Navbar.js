@@ -8,22 +8,22 @@ import { logoutSession } from "../../redux/thunks/user"
 const Navbar = () => {
 
     const dispatch = useDispatch();
-    const stateLogin = useSelector(state => state.user.stateLogin)
     const navigate = useNavigate()
+    const stateLogin = useSelector(state => state.user.stateLogin)
+    const role = useSelector(state => state.user.role)
 
     const handleLogoutSession = () => {
-        //dispatchar accion que cierra sesion
         const user = window.localStorage.getItem('user')
         if (user) {
             const { id, token } = JSON.parse(user)
-            dispatch(logoutSession({id, token}))
+            dispatch(logoutSession({ id, token }))
             navigate('/')
         }
     }
 
     useEffect(() => {
-        if(window.localStorage.getItem('user') && !stateLogin) window.localStorage.removeItem('user')
-    },[stateLogin])
+        if (window.localStorage.getItem('user') && !stateLogin) window.localStorage.removeItem('user')
+    }, [stateLogin])
 
     return (
         <div>
@@ -35,7 +35,11 @@ const Navbar = () => {
                 <ul>
                     <li><NavLink to="/" >Peliculas</NavLink></li>
                     <li><NavLink to="/series">Series</NavLink></li>
-                    <li><NavLink to="/dashboard">Dashboard</NavLink></li>
+                    {
+                        role !== "ADMIN"
+                            ? undefined
+                            : <li><NavLink to="/dashboard">Dashboard</NavLink></li>
+                    }
                     {
                         !stateLogin
                             ? <div>

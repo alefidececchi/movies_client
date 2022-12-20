@@ -16,6 +16,7 @@ const Table = (props) => {
     const navigate = useNavigate()
     const { selected } = props
     const series = useSelector(state => state.containerSeries.data)
+    const token = useSelector(state => state.user.token)
 
     useEffect(() => {
         if (selected === 'movies') dispatch(fetchContainerMovies())
@@ -26,13 +27,13 @@ const Table = (props) => {
     const handleDelete = (id, title) => {
         if (window.confirm(`Estás seguro que querés eliminar ${title}?`)) {
             if (selected === 'movies') {
-                dispatch(deleteMovieId(id))
+                dispatch(deleteMovieId({ id, token }))
                 dispatch(fetchContainerMovies())
             } else if (selected === 'series') {
-                dispatch(deleteSerieId(id))
+                dispatch(deleteSerieId({ id, token }))
                 dispatch(fetchContainerSeries())
             } else if (selected === 'carousel') {
-                dispatch(deleteCarouselId(id));
+                dispatch(deleteCarouselId({ id, token }));
                 dispatch(fetchAllCarousel());
             }
         }

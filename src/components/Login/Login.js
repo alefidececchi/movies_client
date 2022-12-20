@@ -12,26 +12,24 @@ const Login = () => {
 
     const [login, setLogin] = useState({ email: '', password: '' })
     const dispatch = useDispatch()
+    const id = useSelector(state => state.user.user)
     const navigate = useNavigate()
+    const role = useSelector(state => state.user.role)
     const stateLogin = useSelector(state => state.user.stateLogin)
     const token = useSelector(state => state.user.token)
-    const id = useSelector(state => state.user.user)
-
-    // useEffect(() => {
-    //     console.log(login)
-    // }, [login])
 
     useEffect(() => {
         if (stateLogin) {
             window.localStorage.setItem('user', JSON.stringify({
-                token: token,
-                stateLogin: stateLogin,
-                id: id
+                id,
+                role,
+                stateLogin,
+                token,
             }))
             setLogin({ email: '', password: '' })
             navigate('/')
         }
-    }, [id, navigate, stateLogin, token])
+    }, [id, navigate, role, stateLogin, token])
 
     const handleSubmit = (e) => {
         e.preventDefault()

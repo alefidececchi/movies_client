@@ -1,9 +1,15 @@
 import axios from 'axios'
 import { createAsyncThunk } from '@reduxjs/toolkit'
 
-export const createMovie = createAsyncThunk('form/createMovie', async (data) => {
+
+export const createMovie = createAsyncThunk('form/createMovie', async ({ payload, token }) => {
+
+    const headers = {
+        'Authorization': `Bearer ${token}`
+    }
+
     try {
-        const response = await axios.post(`/movies`, data)
+        const response = await axios.post(`/movies`, payload, { headers })
         return response.data
     } catch (error) {
         console.log(error)
@@ -30,20 +36,28 @@ export const fetchMovieId = createAsyncThunk('form/fetchMovieId', async (id) => 
     }
 })
 
-export const updateMovieId = createAsyncThunk('form/updateMovieId', async ({id,payload}) => {
+export const updateMovieId = createAsyncThunk('form/updateMovieId', async ({ id, payload, token }) => {
+
+    const headers = {
+        'Authorization': `Bearer ${token}`
+    }
+
     try {
-        console.log('ID: ', id)
-        console.log('payload: ',payload)
-        const response = await axios.put(`/movies/${id}`, payload)
+        const response = await axios.put(`/movies/${id}`, payload, { headers })
         return response.data
     } catch (error) {
         console.log(error)
     }
 })
 
-export const deleteMovieId = createAsyncThunk('form/deleteMovieId', async (id) => {
+export const deleteMovieId = createAsyncThunk('form/deleteMovieId', async ({ id, token }) => {
+
+    const headers = {
+        'Authorization': `Bearer ${token}`
+    }
+    
     try {
-        const response = await axios.delete(`/movies/${id}`)
+        const response = await axios.delete(`/movies/${id}`, { headers })
         return response.data
     } catch (error) {
         console.log(error)
