@@ -106,8 +106,11 @@ export const formSlice = createSlice({
             })
             .addCase(createMovie.fulfilled, (state, action) => {
                 state.status = 'succeeded';
-                console.log(action.payload)
-                state.message = action.payload.message
+                if (action.payload.error) {
+                    state.message = action.payload.error
+                } else {
+                    state.message = action.payload.message
+                }
             })
             .addCase(createMovie.rejected, (state, action) => {
                 state.status = 'failed'
@@ -121,7 +124,11 @@ export const formSlice = createSlice({
             })
             .addCase(createSerie.fulfilled, (state, action) => {
                 state.status = 'succeeded';
-                state.message = action.payload.message
+                if (action.payload.error) {
+                    state.message = action.payload.error
+                } else {
+                    state.message = action.payload.message
+                }
             })
             .addCase(createSerie.rejected, (state, action) => {
                 state.status = 'failed'
@@ -135,7 +142,11 @@ export const formSlice = createSlice({
             })
             .addCase(createCarousel.fulfilled, (state, action) => {
                 state.status = 'succeeded';
-                state.message = action.payload.message
+                if (action.payload.error) {
+                    state.message = action.payload.error
+                } else {
+                    state.message = action.payload.message
+                }
             })
             .addCase(createCarousel.rejected, (state, action) => {
                 state.status = 'failed'
@@ -149,7 +160,11 @@ export const formSlice = createSlice({
             })
             .addCase(fetchMovieId.fulfilled, (state, action) => {
                 state.status = 'succeeded';
-                state.data = action.payload.movie
+                if (action.payload.error) {
+                    state.message = action.payload.error
+                } else {
+                    state.data = action.payload.movie
+                }
             })
             .addCase(fetchMovieId.rejected, (state, action) => {
                 state.status = 'failed'
@@ -163,7 +178,11 @@ export const formSlice = createSlice({
             })
             .addCase(fetchSerieId.fulfilled, (state, action) => {
                 state.status = 'succeeded';
-                state.data = action.payload.serie
+                if (action.payload.error) {
+                    state.message = action.payload.error
+                } else {
+                    state.data = action.payload.serie
+                }
             })
             .addCase(fetchSerieId.rejected, (state, action) => {
                 state.status = 'failed'
@@ -176,13 +195,15 @@ export const formSlice = createSlice({
                 state.status = 'loading'
             })
             .addCase(updateMovieId.fulfilled, (state, action) => {
-                console.log('deberia actualizarse la peli')
                 state.status = 'succeeded';
-                state.message = action.payload.message
+                if (action.payload.error) {
+                    state.message = action.payload.error
+                } else {
+                    state.message = action.payload.message
+                }
             })
             .addCase(updateMovieId.rejected, (state, action) => {
                 state.status = 'failed'
-                // state.error = action.payload.error ???????
                 state.error = action.error.error
             })
             ////////////////////////////////////////////////////
@@ -192,13 +213,15 @@ export const formSlice = createSlice({
                 state.status = 'loading'
             })
             .addCase(updateSerieId.fulfilled, (state, action) => {
-                console.log('deberia actualizarse la serie')
                 state.status = 'succeeded';
-                state.message = action.payload.message
+                if (action.payload.error) {
+                    state.message = action.payload.error
+                } else {
+                    state.message = action.payload.message
+                }
             })
             .addCase(updateSerieId.rejected, (state, action) => {
                 state.status = 'failed'
-                // state.error = action.payload.error ???????
                 state.error = action.error.error
             })
             ////////////////////////////////////////////////////
@@ -210,11 +233,14 @@ export const formSlice = createSlice({
             .addCase(updateCarouselId.fulfilled, (state, action) => {
                 console.log('deberia actualizarse el carousel')
                 state.status = 'succeeded';
-                state.message = action.payload.message
+                if(action.payload.error) {
+                    state.message = action.payload.error
+                } else {
+                    state.message = action.payload.message
+                }
             })
             .addCase(updateCarouselId.rejected, (state, action) => {
                 state.status = 'failed'
-                // state.error = action.payload.error ???????
                 state.error = action.error.error
             })
             ////////////////////////////////////////////////////
@@ -225,11 +251,14 @@ export const formSlice = createSlice({
             })
             .addCase(deleteMovieId.fulfilled, (state, action) => {
                 state.status = 'succeeded';
-                state.message = action.payload.message
+                if (action.payload.error) {
+                    state.message = action.payload.error
+                } else {
+                    state.message = action.payload.message
+                }
             })
             .addCase(deleteMovieId.rejected, (state, action) => {
                 state.status = 'failed'
-                // state.error = action.payload.error ???????
                 state.error = action.error.error
             })
             ////////////////////////////////////////////////////
@@ -240,11 +269,14 @@ export const formSlice = createSlice({
             })
             .addCase(deleteSerieId.fulfilled, (state, action) => {
                 state.status = 'succeeded';
-                state.message = action.payload.message
+                if (action.payload.error) {
+                    state.message = action.payload.error
+                } else {
+                    state.message = action.payload.message
+                }
             })
             .addCase(deleteSerieId.rejected, (state, action) => {
                 state.status = 'failed'
-                // state.error = action.payload.error ???????
                 state.error = action.error.error
             })
             ////////////////////////////////////////////////////
@@ -255,11 +287,14 @@ export const formSlice = createSlice({
             })
             .addCase(deleteCarouselId.fulfilled, (state, action) => {
                 state.status = 'succeeded';
-                state.message = action.payload.message
+                if (action.payload.error) {
+                    state.message = action.payload.error
+                } else {
+                    state.message = action.payload.message
+                }
             })
             .addCase(deleteCarouselId.rejected, (state, action) => {
                 state.status = 'failed'
-                // state.error = action.payload.error ???????
                 state.error = action.error.error
             })
 

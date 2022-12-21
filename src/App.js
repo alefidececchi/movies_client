@@ -19,10 +19,10 @@ function App() {
       <Routes >
         <Route path='/signin' element={<SignIn />}></Route>
         <Route path='/series' element={<Series />}></Route>
+        <Route path='/dashboard/form/:id' element={<Form />}></Route>
+        <Route path='/dashboard/form' element={<Form />}></Route>
         <Route path='/dashboard/:selected' element={<Dashboard />}></Route>
         <Route path='/dashboard' element={<Dashboard />}></Route>
-        <Route path='/form/:id' element={<Form />}></Route>
-        <Route path='/form' element={<Form />}></Route>
         <Route path='/login' element={<Login />}></Route>
         <Route path='/' element={<Movies />}></Route>
       </Routes>

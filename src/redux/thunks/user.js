@@ -8,7 +8,7 @@ export const getToken = createAsyncThunk('user/getToken', async (data) => {
         const response = await axios.post(`/login`, data)
         return response.data
     } catch (error) {
-        console.log(error)
+        return ({ error: error.response.data.message, status: error.response.status })
     }
 })
 
@@ -19,12 +19,10 @@ export const logoutSession = createAsyncThunk('user/logoutSession', async ({ id,
     }
 
     try {
-        console.log('HEADERS', headers)
-        console.log('ID', id)
         const response = await axios.put(`/logout/${id}`, undefined, { headers })
         return response.data
     } catch (error) {
-        console.log(error)
+        return ({ error: error.response.data.message, status: error.response.status })
     }
 })
 
@@ -34,7 +32,7 @@ export const signin = createAsyncThunk('user/signin', async (data) => {
         const response = await axios.post(`/signin?clasic=true`, data)
         return response.data
     } catch (error) {
-        console.log(error)
+        return ({ error: error.response.data.message, status: error.response.status })
     }
 })
 

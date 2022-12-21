@@ -6,7 +6,7 @@ export const containerSeriesSlice = createSlice({
     name: 'containerSeries',
     initialState: {
         data: [],
-        error: null,
+        message: null,
         // singleDetail: null,
         status: 'idle',
     },
@@ -22,8 +22,11 @@ export const containerSeriesSlice = createSlice({
             })
             .addCase(fetchContainerSeries.fulfilled, (state, action) => {
                 state.status = 'succeeded'
-                // Add any fetched posts to the array
-                state.data = action.payload.series
+                if(action.payload.error) {
+                    state.message = action.payload.error
+                } else {
+                    state.data = action.payload.series
+                }
             })
             .addCase(fetchContainerSeries.rejected, (state, action) => {
                 state.status = 'failed'

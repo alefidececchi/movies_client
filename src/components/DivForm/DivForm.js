@@ -44,7 +44,7 @@ const DivForm = (props) => {
                 }
                 {!!arrayFromData && props.type !== 'checkbox' && <button onClick={handleClick}>+</button>}
             </div>
-            {error === "" ? undefined : (<p style={{ "backgroundColor": "red" }}>{error}</p>)}
+            { !error || error === "" ? undefined : (<p style={{ "backgroundColor": "red" }}>{error}</p>)}
             {props.img ? (<div><img style={{ height: "120px", width: "auto" }} alt={props.title} src={props.img} /></div>) : undefined}
             {!!arrayFromData && props.type !== 'checkbox' && <DivArr father={props.name} arr={arrayFromData} handleArr={props.handleArr} />}
             {/* //pasar props.function de Form que borre el elemento clickeado */}

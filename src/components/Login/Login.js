@@ -2,8 +2,10 @@ import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 
+import { resetMessage } from '../../redux/slices/user.js'
 import { getToken } from '../../redux/thunks/user.js'
 import DivForm from '../DivForm/DivForm.js'
+import Dialog from '../Dialog/Dialog.js'
 
 
 
@@ -17,6 +19,7 @@ const Login = () => {
     const role = useSelector(state => state.user.role)
     const stateLogin = useSelector(state => state.user.stateLogin)
     const token = useSelector(state => state.user.token)
+    const message = useSelector(state => state.user.message)
 
     useEffect(() => {
         if (stateLogin) {
@@ -46,6 +49,7 @@ const Login = () => {
 
     return (
         <div>
+            {!message ? undefined : <Dialog dispatcher={resetMessage} message={message} navigate="/login" ></Dialog>}
             <form onSubmit={handleSubmit}>
                 <DivForm
                     initialValue=''

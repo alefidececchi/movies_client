@@ -7,6 +7,7 @@ import { fetchContainerMovies } from '../../redux/thunks/movies.js'
 
 const Movies = () => {
 
+
     const dispatch = useDispatch()
 
     const handleClick = (input) => {
@@ -14,8 +15,6 @@ const Movies = () => {
         //hacer fetch con las querys
         dispatch(fetchContainerMovies(input))
     }
-
-
 
     return (<div>
         <Carousel type="movies" />

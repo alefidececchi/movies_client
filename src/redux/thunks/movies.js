@@ -12,7 +12,7 @@ export const createMovie = createAsyncThunk('form/createMovie', async ({ payload
         const response = await axios.post(`/movies`, payload, { headers })
         return response.data
     } catch (error) {
-        console.log(error)
+        return ({ error: error.response.data.message, status: error.response.status })
     }
 })
 
@@ -22,7 +22,7 @@ export const fetchContainerMovies = createAsyncThunk('containerMovies/fetchConta
         const response = !input ? await axios.get(`/movies`) : await axios.get(`/movies?title=${input}`)
         return response.data
     } catch (error) {
-        console.log(error)
+        return ({ error: error.response.data.message, status: error.response.status })
     }
 })
 
@@ -32,7 +32,7 @@ export const fetchMovieId = createAsyncThunk('form/fetchMovieId', async (id) => 
         const response = await axios.get(`/movies/${id}`)
         return response.data
     } catch (error) {
-        console.log(error)
+        return ({ error: error.response.data.message, status: error.response.status })
     }
 })
 
@@ -46,7 +46,7 @@ export const updateMovieId = createAsyncThunk('form/updateMovieId', async ({ id,
         const response = await axios.put(`/movies/${id}`, payload, { headers })
         return response.data
     } catch (error) {
-        console.log(error)
+        return ({ error: error.response.data.message, status: error.response.status })
     }
 })
 
@@ -60,6 +60,6 @@ export const deleteMovieId = createAsyncThunk('form/deleteMovieId', async ({ id,
         const response = await axios.delete(`/movies/${id}`, { headers })
         return response.data
     } catch (error) {
-        console.log(error)
+        return ({ error: error.response.data.message, status: error.response.status })
     }
 })

@@ -24,7 +24,11 @@ const carouselSlice = createSlice({
             })
             .addCase(fetchCarousel.fulfilled, (state, action) => {
                 state.status = 'succeeded'
-                state.data = action.payload.carousel
+                if (action.payload.error) {
+                    state.message = action.payload.error
+                } else {
+                    state.data = action.payload.carousel
+                }
             })
             .addCase(fetchCarousel.rejected, (state, action) => {
                 state.status = 'failed'
@@ -37,7 +41,11 @@ const carouselSlice = createSlice({
             })
             .addCase(fetchAllCarousel.fulfilled, (state, action) => {
                 state.status = 'succeeded'
-                state.allData = action.payload.carousel
+                if (action.payload.error) {
+                    state.message = action.payload.error
+                } else {
+                    state.allData = action.payload.carousel
+                }
             })
             .addCase(fetchAllCarousel.rejected, (state, action) => {
                 state.status = 'failed'

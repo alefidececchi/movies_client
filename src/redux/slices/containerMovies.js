@@ -6,7 +6,7 @@ export const containerMoviesSlice = createSlice({
     name: 'containerMovies',
     initialState: {
         data: [],
-        error: null,
+        message: null,
         // singleDetail: null,
         status: 'idle',
     },
@@ -22,8 +22,11 @@ export const containerMoviesSlice = createSlice({
             })
             .addCase(fetchContainerMovies.fulfilled, (state, action) => {
                 state.status = 'succeeded'
-                // Add any fetched posts to the array
-                state.data = action.payload.movies
+                if (action.payload.error) {
+                    state.message = action.payload.message
+                } else {
+                    state.data = action.payload.movies
+                }
             })
             .addCase(fetchContainerMovies.rejected, (state, action) => {
                 state.status = 'failed'

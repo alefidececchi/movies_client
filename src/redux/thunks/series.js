@@ -12,7 +12,7 @@ export const createSerie = createAsyncThunk('form/createSerie', async ({ payload
         const response = await axios.post(`/series`, payload, { headers })
         return response.data
     } catch (error) {
-        console.log(error)
+        return ({ error: error.response.data.message, status: error.response.status })
     }
 })
 
@@ -21,7 +21,7 @@ export const fetchContainerSeries = createAsyncThunk('containerSeries/fetchConta
         const response = !input ? await axios.get(`/series`) : await axios.get(`/series?title=${input}`)
         return response.data
     } catch (error) {
-        console.log(error)
+        return ({ error: error.response.data.message, status: error.response.status })
     }
 })
 
@@ -31,7 +31,7 @@ export const fetchSerieId = createAsyncThunk('form/fetchSerieId', async (id) => 
         const response = await axios.get(`/series/${id}`)
         return response.data
     } catch (error) {
-        console.log(error)
+        return ({ error: error.response.data.message, status: error.response.status })
     }
 })
 
@@ -45,7 +45,7 @@ export const updateSerieId = createAsyncThunk('form/updateSerieId', async ({ id,
         const response = await axios.put(`/series/${id}`, payload, { headers })
         return response.data
     } catch (error) {
-        console.log(error)
+        return ({ error: error.response.data.message, status: error.response.status })
     }
 })
 
@@ -59,6 +59,6 @@ export const deleteSerieId = createAsyncThunk('form/deleteSerieId', async ({ id,
         const response = await axios.delete(`/series/${id}`, { headers })
         return response.data
     } catch (error) {
-        console.log(error)
+        return ({ error: error.response.data.message, status: error.response.status })
     }
 })

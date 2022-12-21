@@ -1,19 +1,30 @@
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 
 import { resetMessage } from '../../redux/slices/form.js'
+import { fetchContainerMovies } from '../../redux/thunks/movies.js'
+import { fetchContainerSeries } from '../../redux/thunks/series.js'
 import Dialog from '../Dialog/Dialog.js'
 import SearchBar from '../SearchBar/SearchBar.js'
 import Table from '../Table/Table.js'
 
 const DashboardContainer = (props) => {
 
+    const dispatch = useDispatch()
     const navigate = useNavigate()
     const { selected } = props
     const message = useSelector(state => state.form.message)
 
     const handleButtonCreate = () => {
-        navigate(`/form?selected=${selected}`)
+        navigate(`/dashboard/form?selected=${selected}`)
+    }
+
+    const handleClick = (input) => {
+        if (selected === 'movies') {
+            dispatch(fetchContainerMovies(input))
+        } else if (selected === 'series') {
+            dispatch(fetchContainerSeries(input))
+        }
     }
 
     return (
@@ -25,11 +36,11 @@ const DashboardContainer = (props) => {
                         <div>
                             <h2>{selected}</h2>
                             {
-                                selected === 'carousel' ?
-                                    undefined :
-                                    selected === 'movies' ?
-                                        <SearchBar placeholder={`Escribe el nombre de la pelicula`} /> :
-                                        <SearchBar placeholder={`Escribe el nombre de la serie`} />
+                                selected === 'carousel'
+                                    ? undefined
+                                    : selected === 'movies'
+                                        ? <SearchBar onClick={handleClick} placeholder={`Escribe el nombre de la pelicula`} />
+                                        : <SearchBar onClick={handleClick} placeholder={`Escribe el nombre de la serie`} />
                             }
                             <button onClick={handleButtonCreate}>Crear {selected === 'movies' ? "pelicula" : selected === 'series' ? "serie" : 'carousel'}</button>
                             {message ? <Dialog dispatcher={resetMessage} id="dialogMessage" message={message} /> : undefined}

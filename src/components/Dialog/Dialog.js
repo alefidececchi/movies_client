@@ -9,18 +9,17 @@ const Dialog = (props) => {
     const navigate = useNavigate()
 
     const handleClick = () => {
-        dispatch(props.dispatcher())
-        if(props.navigate) {
-            navigate(`${props.navigate}`)
-        }
+        if (props.dispatcher) dispatch(props.dispatcher())
+        if (props.navigate) navigate(`${props.navigate}`)
     }
 
-
     return (
-        <dialog id={props.id} open>
-            <h3>{props.message}</h3>
-            <button onClick={handleClick}>Aceptar</button>
-        </dialog>
+        props.message
+            ? <dialog id={props.id} open>
+                <h3>{props.message}</h3>
+                <button onClick={handleClick}>Aceptar</button>
+            </dialog>
+            : undefined
     )
 }
 

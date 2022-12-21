@@ -3,9 +3,11 @@ import { useDispatch, useSelector } from "react-redux"
 import { useSearchParams } from "react-router-dom"
 
 import { cleaningForm, createForm, modifyDeleteArr, modifyFilterArr, modifyPushArr, resetMessage, updateForm } from '../../redux/slices/form.js'
-import { createMovie, deleteMovieId,updateMovieId } from "../../redux/thunks/movies.js"
-import { createSerie, deleteSerieId,updateSerieId } from "../../redux/thunks/series.js"
+import { createMovie, deleteMovieId, updateMovieId } from "../../redux/thunks/movies.js"
+import { createSerie, deleteSerieId, updateSerieId } from "../../redux/thunks/series.js"
 import { createCarousel, deleteCarouselId, updateCarouselId } from "../../redux/thunks/carousel.js"
+
+import DashboardMenu from "../DashboardMenu/DashboardMenu.js"
 import Dialog from "../Dialog/Dialog.js"
 import DivForm from "../DivForm/DivForm"
 
@@ -75,21 +77,23 @@ const Form = () => {
     }
 
     const handleClickDelete = (e) => {
-        if (form.movieOrSerie === undefined) {
-            !form.season ?
+        if (window.confirm(`Estás seguro que querés eliminar ${form.title}?`)) {
+            if (form.movieOrSerie !== undefined) {
+                //carousel
+                dispatch(deleteCarouselId({ id: form._id, token }))
+            } else if (!form.season) {
                 //movie
-                dispatch(deleteMovieId({ id: form._id, token })) :
+                dispatch(deleteMovieId({ id: form._id, token }))
+            } else {
                 //serie
                 dispatch(deleteSerieId({ id: form._id, token }))
-        } else {
-            //carousel
-            dispatch(deleteCarouselId({ id: form._id, token }))
+            }
         }
     }
 
     const handleClickCreate = (e) => {
         const { _id, __v, ...payload } = form
-        console.log(payload)
+        // console.log(payload)
         if (form.movieOrSerie === undefined) {
             !form.season ?
                 //movie
@@ -104,6 +108,7 @@ const Form = () => {
 
     return (
         <div>
+            <DashboardMenu />
             {
                 message
                     ? <Dialog dispatcher={resetMessage} id={`dialog`} message={message} navigate={`/dashboard`} />

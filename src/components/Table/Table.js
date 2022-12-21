@@ -51,7 +51,7 @@ const Table = (props) => {
             }, 100)
         }
         //REDIRECCIONAR A FORMULARIO CON LOS DATOS DE ESE ID
-        navigate(`/form/${id}`)
+        navigate(`/dashboard/form/${id}`)
     }
 
 
