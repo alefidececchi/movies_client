@@ -28,7 +28,7 @@ const ContainerMovies = () => {
         <div>
             <h2>PELICULAS</h2>
             <Filter />
-            {!!container.length && container.map(i => (
+            {!!container && container.map(i => (
                 <ItemCard
                     actors={i.actors}
                     description={i.description}

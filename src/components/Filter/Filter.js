@@ -1,11 +1,14 @@
 import { useEffect, useState } from "react"
-import { useSelector } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
+
+import { fetchMoviesFiltered} from '../../redux/thunks/movies.js'
 
 
 
 const Filter = () => {
 
     const categoriesRedux = useSelector(state => state.categories.data)
+    const dispatch = useDispatch()
     const [optionSelected, setOptionSelected] = useState([])
     const [categories, setCategories] = useState([])
 
@@ -18,6 +21,7 @@ const Filter = () => {
     const handlingFilter = (e) => {
         if (e.target.name === 'filter') {
             console.log('Hola filtro')
+            dispatch(fetchMoviesFiltered(optionSelected))
             //DISPATCHAR ACCION QUE FILTRA EN BD LAS PELIS
         }
         console.log('Hola reset')

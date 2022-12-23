@@ -26,6 +26,18 @@ export const fetchContainerMovies = createAsyncThunk('containerMovies/fetchConta
     }
 })
 
+export const fetchMoviesFiltered = createAsyncThunk('containerMovies/fetchMoviesFiltered', async (categories) => {
+
+    try {
+        console.log(categories)
+        const response = await axios.get(`/movies?categories=${categories}`)
+        return response.data
+    } catch (error) {
+        return ({ error: error.response.data.message, status: error.response.status })
+    }
+
+})
+
 export const fetchMovieId = createAsyncThunk('form/fetchMovieId', async (id) => {
 
     try {
@@ -55,7 +67,7 @@ export const deleteMovieId = createAsyncThunk('form/deleteMovieId', async ({ id,
     const headers = {
         'Authorization': `Bearer ${token}`
     }
-    
+
     try {
         const response = await axios.delete(`/movies/${id}`, { headers })
         return response.data

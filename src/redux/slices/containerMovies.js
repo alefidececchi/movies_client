@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { fetchContainerMovies } from '../thunks/movies.js';
+import { fetchContainerMovies, fetchMoviesFiltered } from '../thunks/movies.js';
 
 
 export const containerMoviesSlice = createSlice({
@@ -29,6 +29,21 @@ export const containerMoviesSlice = createSlice({
                 }
             })
             .addCase(fetchContainerMovies.rejected, (state, action) => {
+                state.status = 'failed'
+                state.error = action.error.message
+            })
+            .addCase(fetchMoviesFiltered.pending, (state, action) => {
+                state.status = 'loading'
+            })
+            .addCase(fetchMoviesFiltered.fulfilled, (state, action) => {
+                state.status = 'succeeded'
+                if (action.payload.error) {
+                    state.message = action.payload.message
+                } else {
+                    state.data = action.payload.movies
+                }
+            })
+            .addCase(fetchMoviesFiltered.rejected, (state, action) => {
                 state.status = 'failed'
                 state.error = action.error.message
             })
