@@ -1,6 +1,6 @@
 import { useEffect } from "react"
+import { useNavigate, useSearchParams } from "react-router-dom"
 import { useDispatch, useSelector } from "react-redux"
-import { useSearchParams } from "react-router-dom"
 
 import { cleaningForm, createForm, modifyDeleteArr, modifyFilterArr, modifyPushArr, resetMessage, updateForm } from '../../redux/slices/form.js'
 import { createMovie, deleteMovieId, updateMovieId } from "../../redux/thunks/movies.js"
@@ -19,11 +19,9 @@ const Form = () => {
     const form = useSelector(state => state.form.data)
     const [queryParams] = useSearchParams()
     const message = useSelector(state => state.form.message)
+    const navigate = useNavigate()
     const selected = queryParams.get('selected')
     const token = useSelector(state => state.user.token)
-
-
-    console.log(form)
 
     useEffect(() => {
         if (selected) {
@@ -118,6 +116,7 @@ const Form = () => {
                 form._id === undefined
                     ? <button onClick={handleClickCreate}>Crear</button>
                     : <div>
+                        <button onClick={() => navigate(-1)}>←</button>
                         <button onClick={handleClickDelete}>Eliminar</button>
                         <button onClick={handleClickUpdate}>Actualizar</button>
                     </div>

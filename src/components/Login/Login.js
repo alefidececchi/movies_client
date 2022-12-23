@@ -37,7 +37,9 @@ const Login = () => {
     const handleSubmit = (e) => {
         e.preventDefault()
         //dispatchar accion que envie login al backend
-        dispatch(getToken(login))
+        if (login.email !== "") {
+            dispatch(getToken(login))
+        }
     }
 
     const handleChange = (e) => {
@@ -68,7 +70,11 @@ const Login = () => {
                     receiveState={handleChange}
                     type="password"
                 />
-                <button>Iniciar sesion</button>
+                {
+                    login.email !== "" && login.password !== ""
+                        ? <button>Iniciar sesion</button>
+                        : undefined
+                }
             </form>
         </div>
     )
