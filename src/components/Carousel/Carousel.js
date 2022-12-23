@@ -7,14 +7,14 @@ const Carousel = ({ type }) => {
 
     const dispatch = useDispatch()
     const carousel = useSelector(state => state.carousel.data)
-    const status = useSelector(state => state.carousel.status)
+    // const status = useSelector(state => state.carousel.status)
 
     useEffect(() => {
         // if (status !== 'loading') {
-        console.log(status)
+        // console.log(status)
         dispatch(fetchCarousel(type))
         // }
-    }, [dispatch])
+    }, [dispatch, type])
 
     return (<div>
         {
