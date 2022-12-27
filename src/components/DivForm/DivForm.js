@@ -33,20 +33,23 @@ const DivForm = (props) => {
         <div>
             <div>
                 <label htmlFor={props.name}>{props.label}</label>
-                {props.type === 'checkbox' ?
-                    <DivArr type="checkbox" father={props.name} arr={arrayFromData} handleArr={props.handleArr} options={props.options} /> :
-                    <input
-                        name={props.name}
-                        onChange={handleChange}
-                        placeholder={props.placeholder}
-                        type={props.type}
-                        value={input} />
+                {
+                    props.type === 'checkbox'
+                        ? <DivArr type="checkbox" father={props.name} arr={arrayFromData} handleArr={props.handleArr} options={props.options} />
+                        : props.type === 'options'
+                            ? undefined
+                            : <input
+                                name={props.name}
+                                onChange={handleChange}
+                                placeholder={props.placeholder}
+                                type={props.type}
+                                value={input} />
                 }
-                {!!arrayFromData && props.type !== 'checkbox' && <button onClick={handleClick}>+</button>}
+                {!!arrayFromData && props.type !== 'checkbox' && props.type !== 'options' && <button onClick={handleClick}>+</button>}
             </div>
-            { !error || error === "" ? undefined : (<p style={{ "backgroundColor": "red" }}>{error}</p>)}
+            {!error || error === "" ? undefined : (<p style={{ "backgroundColor": "red" }}>{error}</p>)}
             {props.img ? (<div><img style={{ height: "120px", width: "auto" }} alt={props.title} src={props.img} /></div>) : undefined}
-            {!!arrayFromData && props.type !== 'checkbox' && <DivArr father={props.name} arr={arrayFromData} handleArr={props.handleArr} />}
+            {!!arrayFromData && props.type !== 'checkbox' && <DivArr type={props.type} options={props.options} father={props.name} arr={arrayFromData} handleArr={props.handleArr} />}
             {/* //pasar props.function de Form que borre el elemento clickeado */}
         </div>
     )

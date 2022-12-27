@@ -1,30 +1,33 @@
 import { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
+import { useLocation } from 'react-router-dom'
 
-import { fetchMoviesFiltered} from '../../redux/thunks/movies.js'
+import { fetchCategories } from '../../redux/thunks/categories.js'
+import { fetchMoviesFiltered } from '../../redux/thunks/movies.js'
+import { fetchSeriesFiltered } from '../../redux/thunks/series.js'
 
 
 
-const Filter = () => {
+const Categories = (props) => {
 
+    const [categories, setCategories] = useState([])
     const categoriesRedux = useSelector(state => state.categories.data)
     const dispatch = useDispatch()
+    const location = useLocation()
     const [optionSelected, setOptionSelected] = useState([])
-    const [categories, setCategories] = useState([])
 
     useEffect(() => {
-        if (categoriesRedux.length !== 0) {
-            setCategories([null, ...categoriesRedux])
-        }
-    }, [categoriesRedux, setCategories])
+        categoriesRedux.length !== 0
+            ? setCategories([null, ...categoriesRedux])
+            : dispatch(fetchCategories())
+    }, [categoriesRedux, dispatch, setCategories])
 
     const handlingFilter = (e) => {
         if (e.target.name === 'filter') {
-            console.log('Hola filtro')
-            dispatch(fetchMoviesFiltered(optionSelected))
-            //DISPATCHAR ACCION QUE FILTRA EN BD LAS PELIS
+            location.pathname === '/series'
+                ? dispatch(fetchSeriesFiltered(optionSelected))
+                : dispatch(fetchMoviesFiltered(optionSelected))
         }
-        console.log('Hola reset')
         setCategories([null, ...categoriesRedux])
         setOptionSelected([])
     }
@@ -51,8 +54,14 @@ const Filter = () => {
                     })
                 }
             </select>
-            <button name='filter' onClick={handlingFilter}>Filtrar</button>
-            <button name='reset' onClick={handlingFilter}>Reset</button>
+            {
+                props.type === 'form'
+                    ? undefined
+                    : <div>
+                        <button name='filter' onClick={handlingFilter}>Filtrar</button>
+                        <button name='reset' onClick={handlingFilter}>Reset</button>
+                    </div>
+            }
             {
                 !!optionSelected.length && optionSelected.map((opt, i) => {
                     return (
@@ -64,4 +73,4 @@ const Filter = () => {
     )
 }
 
-export default Filter
+export default Categories

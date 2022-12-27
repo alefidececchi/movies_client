@@ -1,13 +1,14 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { fetchContainerSeries } from '../thunks/series.js';
 
+import { fetchSeriesFiltered} from '../thunks/series.js'
+
 
 export const containerSeriesSlice = createSlice({
     name: 'containerSeries',
     initialState: {
         data: [],
         message: null,
-        // singleDetail: null,
         status: 'idle',
     },
     reducers: {
@@ -29,6 +30,21 @@ export const containerSeriesSlice = createSlice({
                 }
             })
             .addCase(fetchContainerSeries.rejected, (state, action) => {
+                state.status = 'failed'
+                state.error = action.error.message
+            })
+            .addCase(fetchSeriesFiltered.pending, (state, action) => {
+                state.status = 'loading'
+            })
+            .addCase(fetchSeriesFiltered.fulfilled, (state, action) => {
+                state.status = 'succeeded'
+                if (action.payload.error) {
+                    state.message = action.payload.message
+                } else {
+                    state.data = action.payload.series
+                }
+            })
+            .addCase(fetchSeriesFiltered.rejected, (state, action) => {
                 state.status = 'failed'
                 state.error = action.error.message
             })

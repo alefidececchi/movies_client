@@ -1,4 +1,4 @@
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 import { useNavigate, useSearchParams } from "react-router-dom"
 import { useDispatch, useSelector } from "react-redux"
 
@@ -6,6 +6,8 @@ import { cleaningForm, createForm, modifyDeleteArr, modifyFilterArr, modifyPushA
 import { createMovie, deleteMovieId, updateMovieId } from "../../redux/thunks/movies.js"
 import { createSerie, deleteSerieId, updateSerieId } from "../../redux/thunks/series.js"
 import { createCarousel, deleteCarouselId, updateCarouselId } from "../../redux/thunks/carousel.js"
+import { fetchCategories } from '../../redux/thunks/categories.js'
+import { forLoop } from '../../helpers/forLoop.js'
 
 import DashboardMenu from "../DashboardMenu/DashboardMenu.js"
 import Dialog from "../Dialog/Dialog.js"
@@ -15,6 +17,9 @@ import DivForm from "../DivForm/DivForm"
 
 const Form = () => {
 
+    const categoriesRedux = useSelector(state => state.categories.data)
+    const [categoriesOptions, setCategoriesOptions] = useState(categoriesRedux)
+    // const [categories, setCategories] = useState([])
     const dispatch = useDispatch()
     const form = useSelector(state => state.form.data)
     const [queryParams] = useSearchParams()
@@ -33,6 +38,21 @@ const Form = () => {
         }
     }, [dispatch, selected, queryParams])
 
+
+    useEffect(() => {
+        console.log(form)
+        if (form.category && form.category.length) {
+            const newOpt = forLoop(form.category, categoriesRedux)
+            setCategoriesOptions(newOpt)
+        }
+    }, [categoriesRedux, form, setCategoriesOptions])
+
+    useEffect(() => {
+        if (categoriesRedux.length === 0) {
+            dispatch(fetchCategories())
+        }
+    }, [categoriesRedux, dispatch])
+
     const handleChange = (e) => {
         let target = e.target.name
         let value = e.target.value
@@ -41,7 +61,7 @@ const Form = () => {
         }
     }
 
-    const handleArr = ({ checkbox, i, input, target }) => {
+    const handleArr = ({ checkbox, i, input, options, target }) => {
         if (input !== undefined) {
             //dispatchar accion que pushea string en el array
             dispatch(modifyPushArr({ target, input }))
@@ -57,6 +77,8 @@ const Form = () => {
             } else {
                 dispatch(modifyFilterArr({ target, opt }))
             }
+        } else if (options !== undefined) {
+            dispatch(modifyPushArr({ target, input: options }))
         }
     }
 
@@ -168,13 +190,15 @@ const Form = () => {
                                 name="actors"
                                 type="text"
                             />
+                            {/* <Categories type="form" /> */}
                             <DivForm
                                 arrayFromData={form.category}
                                 handleArr={handleArr}
                                 initialValue=""
                                 label="Categorías/Generos"
                                 name="category"
-                                type="text"
+                                options={categoriesOptions}
+                                type="options"
                             />
                             <DivForm
                                 errorMessage="Agregá el link del banner"

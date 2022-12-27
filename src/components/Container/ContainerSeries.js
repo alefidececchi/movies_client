@@ -1,7 +1,6 @@
 import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchContainerSeries } from '../../redux/thunks/series.js'
-import Filter from '../Filter/Filter.js'
 import ItemCard from '../ItemCard/ItemCard.js';
 
 const ContainerMovies = () => {
@@ -17,7 +16,6 @@ const ContainerMovies = () => {
     return (
         <div>
             <h2>SERIES</h2>
-            <Filter />
             {!!container.length && container.map(i => (
                 <ItemCard
                     actors={i.actors}

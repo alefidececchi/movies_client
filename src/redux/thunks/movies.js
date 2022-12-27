@@ -29,7 +29,7 @@ export const fetchContainerMovies = createAsyncThunk('containerMovies/fetchConta
 export const fetchMoviesFiltered = createAsyncThunk('containerMovies/fetchMoviesFiltered', async (categories) => {
 
     try {
-        console.log(categories)
+        console.log('Categorias front',categories)
         const response = await axios.get(`/movies?categories=${categories}`)
         return response.data
     } catch (error) {
