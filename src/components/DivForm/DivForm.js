@@ -36,8 +36,14 @@ const DivForm = (props) => {
                 {
                     props.type === 'checkbox'
                         ? <DivArr type="checkbox" father={props.name} arr={arrayFromData} handleArr={props.handleArr} options={props.options} />
-                        : props.type === 'options'
-                            ? undefined
+                        : props.type === 'textArea'
+                            ? <textarea
+                                name={props.name}
+                                onChange={handleChange}
+                                placeholder={props.placeholder}
+                                type={props.type}
+                                value={input}
+                            />
                             : <input
                                 name={props.name}
                                 onChange={handleChange}
@@ -45,7 +51,7 @@ const DivForm = (props) => {
                                 type={props.type}
                                 value={input} />
                 }
-                {!!arrayFromData && props.type !== 'checkbox' && props.type !== 'options' && <button onClick={handleClick}>+</button>}
+                {!!arrayFromData && props.type !== 'checkbox' && <button onClick={handleClick}>+</button>}
             </div>
             {!error || error === "" ? undefined : (<p style={{ "backgroundColor": "red" }}>{error}</p>)}
             {props.img ? (<div><img style={{ height: "120px", width: "auto" }} alt={props.title} src={props.img} /></div>) : undefined}

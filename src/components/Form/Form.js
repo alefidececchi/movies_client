@@ -18,8 +18,6 @@ import DivForm from "../DivForm/DivForm"
 const Form = () => {
 
     const categoriesRedux = useSelector(state => state.categories.data)
-    const [categoriesOptions, setCategoriesOptions] = useState(categoriesRedux)
-    // const [categories, setCategories] = useState([])
     const dispatch = useDispatch()
     const form = useSelector(state => state.form.data)
     const [queryParams] = useSearchParams()
@@ -38,15 +36,6 @@ const Form = () => {
         }
     }, [dispatch, selected, queryParams])
 
-
-    useEffect(() => {
-        console.log(form)
-        if (form.category && form.category.length) {
-            const newOpt = forLoop(form.category, categoriesRedux)
-            setCategoriesOptions(newOpt)
-        }
-    }, [categoriesRedux, form, setCategoriesOptions])
-
     useEffect(() => {
         if (categoriesRedux.length === 0) {
             dispatch(fetchCategories())
@@ -56,12 +45,12 @@ const Form = () => {
     const handleChange = (e) => {
         let target = e.target.name
         let value = e.target.value
-        if (target !== 'actors' || target !== 'category' || target !== 'type_storage') {
+        if (target !== 'actors' && target !== 'category' && target !== 'type_storage') {
             dispatch(updateForm({ target, value }))
         }
     }
 
-    const handleArr = ({ checkbox, i, input, options, target }) => {
+    const handleArr = ({ checkbox, i, input, target }) => {
         if (input !== undefined) {
             //dispatchar accion que pushea string en el array
             dispatch(modifyPushArr({ target, input }))
@@ -71,14 +60,13 @@ const Form = () => {
         } else if (checkbox !== undefined) {
             //dispatchar accion
             const opt = Object.keys(checkbox)[0]
-            console.log('checkbox', checkbox)
+            console.log('checkbox:', checkbox)
+            console.log('opt:', opt)
             if (checkbox[opt]) {
                 dispatch(modifyPushArr({ target, input: opt }))
             } else {
                 dispatch(modifyFilterArr({ target, opt }))
             }
-        } else if (options !== undefined) {
-            dispatch(modifyPushArr({ target, input: options }))
         }
     }
 
@@ -113,7 +101,6 @@ const Form = () => {
 
     const handleClickCreate = (e) => {
         const { _id, __v, ...payload } = form
-        // console.log(payload)
         if (form.movieOrSerie === undefined) {
             !form.season ?
                 //movie
@@ -129,6 +116,7 @@ const Form = () => {
     return (
         <div>
             <DashboardMenu />
+            {console.log(form)}
             {
                 message
                     ? <Dialog dispatcher={resetMessage} id={`dialog`} message={message} navigate={`/dashboard`} />
@@ -173,7 +161,7 @@ const Form = () => {
                                 label="Descripción/Sinopsis"
                                 name="description"
                                 receiveState={handleChange}
-                                type="text" />
+                                type="textArea" />
                             <DivForm
                                 errorMessage="Agrega un Director"
                                 initialValue={form.director}
@@ -197,8 +185,8 @@ const Form = () => {
                                 initialValue=""
                                 label="Categorías/Generos"
                                 name="category"
-                                options={categoriesOptions}
-                                type="options"
+                                options={categoriesRedux}
+                                type="checkbox"
                             />
                             <DivForm
                                 errorMessage="Agregá el link del banner"

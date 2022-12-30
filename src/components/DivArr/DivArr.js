@@ -7,27 +7,10 @@ const DivArr = (props) => {
 
     return (<div>
         {
-            props.type === "options"
-                ? (
-                    <div>
-                        <select name="option" onChange={(e) => props.handleArr({ target: props.father, options: e.target.value })}>
-                            {
-                                !!props.options && props.options.map((opt, i) => {
-                                    return (
-                                        <option value={opt} key={opt + i}>{opt}</option>
-                                    )
-                                })}
-                        </select>
-                    </div>
-                )
-                : undefined
-        }
-        {
             props.type === 'checkbox'
                 ? !!props.options && props.options.map(opt => {
                     return (
                         <div key={opt}>
-                            <label>{opt}</label>
                             <input
                                 checked={arr.includes(opt)}
                                 name={opt}
@@ -35,6 +18,7 @@ const DivArr = (props) => {
                                 type='checkbox'
                                 value={opt}
                             />
+                            <label>{opt}</label>
                         </div>
                     )
                 })
