@@ -25,6 +25,7 @@ const ContainerMovies = () => {
                     key={i._id}
                     link_img={i.link_img}
                     title={i.title}
+                    trailer={i.link_trailer}
                 ></ItemCard>)
             )}
         </div>

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useEffect } from "react"
 import { useNavigate, useSearchParams } from "react-router-dom"
 import { useDispatch, useSelector } from "react-redux"
 
@@ -7,7 +7,7 @@ import { createMovie, deleteMovieId, updateMovieId } from "../../redux/thunks/mo
 import { createSerie, deleteSerieId, updateSerieId } from "../../redux/thunks/series.js"
 import { createCarousel, deleteCarouselId, updateCarouselId } from "../../redux/thunks/carousel.js"
 import { fetchCategories } from '../../redux/thunks/categories.js'
-import { forLoop } from '../../helpers/forLoop.js'
+// import { forLoop } from '../../helpers/forLoop.js'
 
 import DashboardMenu from "../DashboardMenu/DashboardMenu.js"
 import Dialog from "../Dialog/Dialog.js"
