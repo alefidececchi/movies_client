@@ -25,6 +25,16 @@ export const fetchContainerSeries = createAsyncThunk('containerSeries/fetchConta
     }
 })
 
+export const fetchDashboardSeries = createAsyncThunk('dashboard/fetchDashboardSeries', async () => {
+    //FETCH DATA
+    try {
+        const response = await axios.get(`/series/dashboard`)
+        return response.data
+    } catch (error) {
+        return ({ error: error.response.data.message, status: error.response.status })
+    }
+})
+
 export const fetchSeriesFiltered = createAsyncThunk('containerSeries/fetchSeriesFiltered', async (categories) => {
 
     try {

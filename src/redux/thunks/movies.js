@@ -26,6 +26,16 @@ export const fetchContainerMovies = createAsyncThunk('containerMovies/fetchConta
     }
 })
 
+export const fetchDashboardMovies = createAsyncThunk('dashboard/fetchDashboardMovies', async () => {
+    //FETCH DATA
+    try {
+        const response = await axios.get(`/movies/dashboard`)
+        return response.data
+    } catch (error) {
+        return ({ error: error.response.data.message, status: error.response.status })
+    }
+})
+
 export const fetchMoviesFiltered = createAsyncThunk('containerMovies/fetchMoviesFiltered', async (categories) => {
 
     try {

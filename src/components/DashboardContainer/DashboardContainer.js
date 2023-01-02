@@ -6,6 +6,7 @@ import { fetchContainerMovies } from '../../redux/thunks/movies.js'
 import { fetchContainerSeries } from '../../redux/thunks/series.js'
 import Dialog from '../Dialog/Dialog.js'
 import SearchBar from '../SearchBar/SearchBar.js'
+import Pagination from '../Pagination/Pagination.js'
 import Table from '../Table/Table.js'
 
 const DashboardContainer = (props) => {
@@ -45,6 +46,11 @@ const DashboardContainer = (props) => {
                             <button onClick={handleButtonCreate}>Crear {selected === 'movies' ? "pelicula" : selected === 'series' ? "serie" : 'carousel'}</button>
                             {message ? <Dialog dispatcher={resetMessage} id="dialogMessage" message={message} /> : undefined}
                             <Table selected={selected} />
+                            {
+                                selected === 'movies' || selected === 'series'
+                                    ? <Pagination selected={selected} />
+                                    : undefined
+                            }
                         </div>
                     )
             }
