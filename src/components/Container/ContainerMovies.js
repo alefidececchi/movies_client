@@ -2,6 +2,7 @@ import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchContainerMovies } from '../../redux/thunks/movies.js'
 import ItemCard from '../ItemCard/ItemCard.js';
+import Whatsapp from '../Whatsapp/Whatsapp.js';
 
 const ContainerMovies = () => {
 
@@ -17,6 +18,7 @@ const ContainerMovies = () => {
     return (
         <div>
             <h2>PELICULAS</h2>
+            <Whatsapp />
             {!!container && container.map(i => (
                 <ItemCard
                     actors={i.actors}

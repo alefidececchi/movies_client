@@ -22,6 +22,7 @@ const ItemCard = (props) => {
                         handleModal={handleClick}
                         img={props.img}
                         key={props._id}
+                        season={props.season}
                         title={props.title}
                         trailer={props.trailer}
                     />

@@ -16,6 +16,7 @@ const ModalCard = (props) => {
                 <p>{props.description}</p>
                 <h3>Genero:</h3>
                 {props.category && props.category.map(c => (<p key={props.title + c}>{c}</p>))}
+                {!!props.season ? <h3>Temporada {props.season}</h3> : undefined}
                 <h3>Director: {props.director}</h3>
                 <h3>Actores: </h3>
                 <ul>{props.actors && props.actors.map(a => (<li key={props.title + a}>{a}</li>))}</ul>

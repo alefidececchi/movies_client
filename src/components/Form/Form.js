@@ -45,6 +45,9 @@ const Form = () => {
     const handleChange = (e) => {
         let target = e.target.name
         let value = e.target.value
+        if(target === "link_trailer") {
+            value = value.split('watch?v=').join('embed/')
+        }
         if (target !== 'actors' && target !== 'category' && target !== 'type_storage') {
             dispatch(updateForm({ target, value }))
         }
@@ -178,7 +181,6 @@ const Form = () => {
                                 name="actors"
                                 type="text"
                             />
-                            {/* <Categories type="form" /> */}
                             <DivForm
                                 arrayFromData={form.category}
                                 handleArr={handleArr}

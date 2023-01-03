@@ -11,9 +11,17 @@ const DivForm = (props) => {
     const validate = (value) => !value.length ? setError(props.errorMessage) : setError("")
 
     const handleChange = (e) => {
-        setInput(e.target.value);
-        validate(e.target.value)
+
+        if (e.target.name === "link_trailer") {
+            let value = e.target.value
+            setInput(value.split('watch?v=').join('embed/'))
+        } else {
+            setInput(e.target.value);
+            validate(e.target.value)
+        }
+
         //PARA QUE EL PADRE RECIBA LOS CAMBIOS
+
         if (props.receiveState) {
             props.receiveState(e)
         }
@@ -55,6 +63,7 @@ const DivForm = (props) => {
             </div>
             {!error || error === "" ? undefined : (<p style={{ "backgroundColor": "red" }}>{error}</p>)}
             {props.img ? (<div><img style={{ height: "120px", width: "auto" }} alt={props.title} src={props.img} /></div>) : undefined}
+            {props.name === "link_trailer" ? <iframe height="315" src={input} title={props.title} width="420" /> : undefined}
             {!!arrayFromData && props.type !== 'checkbox' && <DivArr type={props.type} options={props.options} father={props.name} arr={arrayFromData} handleArr={props.handleArr} />}
             {/* //pasar props.function de Form que borre el elemento clickeado */}
         </div>
