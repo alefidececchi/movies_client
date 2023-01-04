@@ -4,15 +4,18 @@ import { fetchContainerSeries } from '../../redux/thunks/series.js'
 import ItemCard from '../ItemCard/ItemCard.js';
 import Whatsapp from '../Whatsapp/Whatsapp.js';
 
-const ContainerMovies = () => {
+const ContainerSeries = (props) => {
 
-    const dispatch = useDispatch()
+    const { categories, input } = props
     const container = useSelector(state => state.containerSeries.data)
-    // const status = useSelector(state => state.containerSeries.status)
+    const dispatch = useDispatch()
+    const limit = useSelector(state => state.containerSeries.limit)
+    const page = useSelector(state => state.containerSeries.page)
 
     useEffect(() => {
-        dispatch(fetchContainerSeries())
-    }, [dispatch])
+        console.log('hello series')
+        dispatch(fetchContainerSeries({ categories, input, limit, page }))
+    }, [categories, dispatch, input, limit, page])
 
     return (
         <div>
@@ -35,4 +38,4 @@ const ContainerMovies = () => {
     )
 }
 
-export default ContainerMovies
+export default ContainerSeries

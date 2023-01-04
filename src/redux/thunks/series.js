@@ -16,35 +16,33 @@ export const createSerie = createAsyncThunk('form/createSerie', async ({ payload
     }
 })
 
-export const fetchContainerSeries = createAsyncThunk('containerSeries/fetchContainerSeries', async (input) => {
+export const fetchContainerSeries = createAsyncThunk('containerSeries/fetchContainerSeries', async ({ categories, input, page, limit }) => {
     try {
-        const response = !input ? await axios.get(`/series`) : await axios.get(`/series?title=${input}`)
+        console.log('VALORES EN DISPATCH', { categories, input, page, limit })
+        const response = categories
+            ? await axios.get(`/series?categories=${categories}&page=${page}&limit=${limit}`)
+            : input
+                ? await axios.get(`/series?title=${input}&page=${page}&limit=${limit}`)
+                : await axios.get(`/series?page=${page}&limit=${limit}`)
         return response.data
     } catch (error) {
         return ({ error: error.response.data.message, status: error.response.status })
     }
 })
 
-export const fetchDashboardSeries = createAsyncThunk('dashboard/fetchDashboardSeries', async () => {
+export const fetchDashboardSeries = createAsyncThunk('dashboard/fetchDashboardSeries', async (input) => {
     //FETCH DATA
     try {
-        const response = await axios.get(`/series/dashboard`)
+        let response;
+        if (input) {
+            response = await axios.get(`/series/dashboard?title=${input}`)
+        } else {
+            response = await axios.get(`/series/dashboard`)
+        }
         return response.data
     } catch (error) {
         return ({ error: error.response.data.message, status: error.response.status })
     }
-})
-
-export const fetchSeriesFiltered = createAsyncThunk('containerSeries/fetchSeriesFiltered', async (categories) => {
-
-    try {
-        console.log('Categorias front', categories)
-        const response = await axios.get(`/series?categories=${categories}`)
-        return response.data
-    } catch (error) {
-        return ({ error: error.response.data.message, status: error.response.status })
-    }
-
 })
 
 export const fetchSerieId = createAsyncThunk('form/fetchSerieId', async (id) => {

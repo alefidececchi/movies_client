@@ -4,16 +4,18 @@ import { fetchContainerMovies } from '../../redux/thunks/movies.js'
 import ItemCard from '../ItemCard/ItemCard.js';
 import Whatsapp from '../Whatsapp/Whatsapp.js';
 
-const ContainerMovies = () => {
+const ContainerMovies = (props) => {
 
-    const dispatch = useDispatch()
+    const { categories, input } = props
     const container = useSelector(state => state.containerMovies.data)
-
+    const dispatch = useDispatch()
+    const limit = useSelector(state => state.containerMovies.limit)
+    const page = useSelector(state => state.containerMovies.page)
 
     useEffect(() => {
-        // console.log('hello movies')
-        dispatch(fetchContainerMovies())
-    }, [dispatch])
+        console.log('hello movies')
+        dispatch(fetchContainerMovies({ categories, input, limit, page }))
+    }, [categories, dispatch, input, limit, page])
 
     return (
         <div>

@@ -38,9 +38,8 @@ const dashboardSlice = createSlice({
                     state.message = action.payload.message
                 } else {
                     state.data = action.payload.movies
-                    state.count = 1000
+                    state.count = action.payload.movies.length
                     state.page = 1
-                    // state.count = action.payload.movies.length
                 }
             })
             .addCase(fetchDashboardMovies.rejected, (state, action) => {

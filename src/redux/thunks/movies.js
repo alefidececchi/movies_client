@@ -16,36 +16,35 @@ export const createMovie = createAsyncThunk('form/createMovie', async ({ payload
     }
 })
 
-export const fetchContainerMovies = createAsyncThunk('containerMovies/fetchContainerMovies', async (input) => {
+export const fetchContainerMovies = createAsyncThunk('containerMovies/fetchContainerMovies', async ({ categories, input, page, limit }) => {
     //FETCH DATA
     try {
-        const response = !input ? await axios.get(`/movies`) : await axios.get(`/movies?title=${input}`)
+        // console.log('hola desde el distpach ')
+        console.log('VALORES EN DISPATCH', { categories, input, page, limit })
+        const response = categories
+            ? await axios.get(`/movies?categories=${categories}&page=${page}&limit=${limit}`)
+            : input
+                ? await axios.get(`/movies?title=${input}&page=${page}&limit=${limit}`)
+                : await axios.get(`/movies?page=${page}&limit=${limit}`)
         return response.data
     } catch (error) {
         return ({ error: error.response.data.message, status: error.response.status })
     }
 })
 
-export const fetchDashboardMovies = createAsyncThunk('dashboard/fetchDashboardMovies', async () => {
+export const fetchDashboardMovies = createAsyncThunk('dashboard/fetchDashboardMovies', async (input) => {
     //FETCH DATA
     try {
-        const response = await axios.get(`/movies/dashboard`)
+        let response;
+        if (input) {
+            response = await axios.get(`/movies/dashboard?title=${input}`)
+        } else {
+            response = await axios.get(`/movies/dashboard`)
+        }
         return response.data
     } catch (error) {
         return ({ error: error.response.data.message, status: error.response.status })
     }
-})
-
-export const fetchMoviesFiltered = createAsyncThunk('containerMovies/fetchMoviesFiltered', async (categories) => {
-
-    try {
-        console.log('Categorias front',categories)
-        const response = await axios.get(`/movies?categories=${categories}`)
-        return response.data
-    } catch (error) {
-        return ({ error: error.response.data.message, status: error.response.status })
-    }
-
 })
 
 export const fetchMovieId = createAsyncThunk('form/fetchMovieId', async (id) => {

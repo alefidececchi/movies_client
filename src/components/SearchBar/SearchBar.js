@@ -10,14 +10,19 @@ const SearchBar = (props) => {
     }
 
     const handleClick = (e) => {
-       props.onClick(input)
-       setInput("")
+        if (e.target.name === "reset") {
+            setInput("")
+            props.onClick(null)
+        } else {
+            props.onClick(input)
+        }
     }
 
     return (
         <div>
             <input placeholder={props.placeholder} onChange={handleChange} type="text" value={input} />
-            <button onClick={handleClick}>Buscar</button>
+            <button name="reset" onClick={handleClick} value="x">x</button>
+            <button name="buscar" onClick={handleClick} value="Buscar">Buscar</button>
         </div>
     )
 }

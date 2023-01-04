@@ -3,6 +3,8 @@ import { NavLink, useNavigate } from "react-router-dom"
 import { useDispatch, useSelector } from "react-redux"
 
 import { logoutSession } from "../../redux/thunks/user"
+import { resetPage } from "../../redux/slices/containerMovies.js"
+import { resetSeriesPage } from "../../redux/slices/containerSeries.js"
 
 
 const Navbar = () => {
@@ -33,8 +35,8 @@ const Navbar = () => {
 
             <div>
                 <ul>
-                    <li><NavLink to="/" >Peliculas</NavLink></li>
-                    <li><NavLink to="/series">Series</NavLink></li>
+                    <li onClick={() => dispatch(resetPage())}><NavLink to="/" >Peliculas</NavLink></li>
+                    <li onClick={() => dispatch(resetSeriesPage())}><NavLink to="/series" >Series</NavLink></li>
                     {
                         role !== "ADMIN"
                             ? undefined

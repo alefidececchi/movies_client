@@ -2,8 +2,8 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 
 import { resetMessage } from '../../redux/slices/form.js'
-import { fetchContainerMovies } from '../../redux/thunks/movies.js'
-import { fetchContainerSeries } from '../../redux/thunks/series.js'
+import { fetchDashboardMovies } from '../../redux/thunks/movies.js'
+import { fetchDashboardSeries } from '../../redux/thunks/series.js'
 import Dialog from '../Dialog/Dialog.js'
 import SearchBar from '../SearchBar/SearchBar.js'
 import Pagination from '../Pagination/Pagination.js'
@@ -22,9 +22,9 @@ const DashboardContainer = (props) => {
 
     const handleClick = (input) => {
         if (selected === 'movies') {
-            dispatch(fetchContainerMovies(input))
+            dispatch(fetchDashboardMovies(input))
         } else if (selected === 'series') {
-            dispatch(fetchContainerSeries(input))
+            dispatch(fetchDashboardSeries(input))
         }
     }
 

@@ -1,25 +1,34 @@
-import { useDispatch } from 'react-redux'
+import { useState } from 'react'
+import { useSelector } from 'react-redux'
 
-import { fetchContainerSeries } from '../../redux/thunks/series.js'
+import ButtonShowMore from '../ButtonShowMore/ButtonShowMore.js'
 import Carousel from '../Carousel/Carousel.js'
-import ContainerSeries from '../Container/ContainerSeries.js'
 import Categories from '../Categories/Categories.js'
+import ContainerSeries from '../Container/ContainerSeries.js'
 import SearchBar from '../SearchBar/SearchBar.js'
 
 const Series = () => {
 
-    const dispatch = useDispatch()
+    const [categories, setCategories] = useState(null)
+    const [searchBarValue, setSearchBarValue] = useState(null)
+    const showButton = useSelector(state => state.containerSeries.showButton)
 
-    const handleClick = (input) => {
-        dispatch(fetchContainerSeries(input))
+    const handleClick = (input, categories) => {
+        setSearchBarValue(input)
+        setCategories(categories)
     }
 
     return (
         <div>
             <Carousel type="series" />
             <SearchBar onClick={handleClick} placeholder="Escribe el nombre de una serie" />
-            <Categories />
-            <ContainerSeries />
+            <Categories onClick={handleClick} />
+            <ContainerSeries categories={categories} input={searchBarValue} />
+            {
+                showButton
+                    ? <ButtonShowMore series={true} />
+                    : undefined
+            }
         </div>
     )
 }

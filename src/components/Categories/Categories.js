@@ -1,10 +1,8 @@
 import { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
-import { useLocation } from 'react-router-dom'
+// import { useLocation } from 'react-router-dom'
 
 import { fetchCategories } from '../../redux/thunks/categories.js'
-import { fetchMoviesFiltered } from '../../redux/thunks/movies.js'
-import { fetchSeriesFiltered } from '../../redux/thunks/series.js'
 
 
 
@@ -13,8 +11,10 @@ const Categories = (props) => {
     const [categories, setCategories] = useState([])
     const categoriesRedux = useSelector(state => state.categories.data)
     const dispatch = useDispatch()
-    const location = useLocation()
+    // const location = useLocation()
     const [optionSelected, setOptionSelected] = useState([])
+    // const limit = useSelector(state => state.containerMovies.limit)
+    // const page = useSelector(state => state.containerMovies.page)
 
     useEffect(() => {
         categoriesRedux.length !== 0
@@ -24,12 +24,14 @@ const Categories = (props) => {
 
     const handlingFilter = (e) => {
         if (e.target.name === 'filter') {
-            location.pathname === '/series'
-                ? dispatch(fetchSeriesFiltered(optionSelected))
-                : dispatch(fetchMoviesFiltered(optionSelected))
+            // location.pathname === '/series'
+            props.onClick(null, optionSelected)
+            // dispatch(fetchMoviesFiltered({ categories: optionSelected, page, limit }))
+        } else {
+            props.onClick(null, null)
+            setCategories([null, ...categoriesRedux])
+            setOptionSelected([])
         }
-        setCategories([null, ...categoriesRedux])
-        setOptionSelected([])
     }
 
     const handlingSelection = (e) => {

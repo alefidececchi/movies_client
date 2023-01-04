@@ -1,17 +1,14 @@
-// import { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
 
 import { changePage } from '../../redux/slices/dashboard.js'
 
 
-
-
 const Pagination = () => {
 
-    const page = useSelector(state => state.dashboard.page)
     const count = useSelector(state => state.dashboard.count)
     const dispatch = useDispatch()
     const limit = useSelector(state => state.dashboard.limit)
+    const page = useSelector(state => state.dashboard.page)
     let pages = Math.ceil(count / limit)
     const pagesToRender = []
 
@@ -21,7 +18,7 @@ const Pagination = () => {
     }
 
     for (let i = 1; i <= pages; i++) {
-        pagesToRender.push(<li><button key={i} onClick={() => handleClickOnPage(i)}>{i}</button></li>)
+        pagesToRender.push(<li key={i}><button onClick={() => handleClickOnPage(i)}>{i}</button></li>)
     }
 
     return (
