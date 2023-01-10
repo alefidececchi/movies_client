@@ -30,7 +30,7 @@ const Navbar = () => {
     return (
         <div>
             <div>
-                <p>JOKERAPP</p>
+                <img alt="logo" src="https://res.cloudinary.com/dmobuherg/image/upload/v1673296282/samples/jokerstore_letras_cloudinary_centrada_8px_dl5yzd.png" />
             </div>
 
             <div>

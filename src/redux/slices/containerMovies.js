@@ -6,7 +6,7 @@ export const containerMoviesSlice = createSlice({
     name: 'containerMovies',
     initialState: {
         data: [],
-        limit: 20,
+        limit: 5,
         message: null,
         page: 1,
         showButton: true,

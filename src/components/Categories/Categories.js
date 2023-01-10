@@ -17,7 +17,7 @@ const Categories = (props) => {
     // const page = useSelector(state => state.containerMovies.page)
 
     useEffect(() => {
-        categoriesRedux.length !== 0
+        categoriesRedux && categoriesRedux.length !== 0
             ? setCategories([null, ...categoriesRedux])
             : dispatch(fetchCategories())
     }, [categoriesRedux, dispatch, setCategories])

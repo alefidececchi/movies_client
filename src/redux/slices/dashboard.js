@@ -10,7 +10,7 @@ const dashboardSlice = createSlice({
         count: null,
         data: [],
         error: '',
-        limit: 10,
+        limit: 5,
         message: null,
         page: 1,
         status: 'idle'
